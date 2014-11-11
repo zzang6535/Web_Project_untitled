@@ -1,0 +1,146 @@
+@font-face {
+      font-family: 'Nanum Gothic';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+}
+    @font-face {
+      font-family: 'Nanum Gothic';
+      font-style: normal;
+      font-weight: 700;
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
+}
+    @font-face {
+      font-family: 'Nanum Gothic';
+      font-style: normal;
+      font-weight: 800;
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot);
+      src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff2) format('woff2'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff) format('woff'),
+           url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.ttf) format('truetype');
+}
+html { font-size: 100%; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+-ms-text-size-adjust: 100%; /* 2 */ }
+/* * Addresses `font-family` inconsistency between `textarea` and other form
+* elements. */
+html, button, input, select, textarea { font-family: sans-serif; }
+/* * Addresses margins handled incorrectly in IE 6/7. */
+body { margin: 0; font-family: "Nanum Gothic" !important; overflow-x: hidden; }
+body { font-family: 'Nanum Gothic' !important;}
+*{ font-family: 'Nanum Gothic' !important;}
+
+body div.bodyWrapper
+{
+	margin-top:100px;
+}
+body div#registerBox
+{
+	margin: 0 auto;
+	width:350px;
+}
+body div#registerBox h2, body div#registerBox .btn
+{
+	width:100%;
+	text-align:center;
+}
+body div#registerBox dt label
+{
+	width:100px;
+}
+body div#registerBox dt, body div#registerBox dd
+{
+	display:inline-block;
+}
+body div#registerBox input[type=radio]
+{
+	margin-right:25px;
+}
+
+body div.boardWrapper
+{
+	margin:0 auto;
+	width:800px;
+}
+div.borad table
+{
+	border:1px solid black;
+	width:800px;
+}
+td, th
+{
+	border:1px solid black;
+	text-align:center !important;
+}
+th.num
+{
+	width:30px;
+}
+th.title
+{
+	width:200px;
+}
+th.author
+{
+	width:50px;
+}
+th.wtime
+{
+	width:100px;
+}
+th.cnt
+{
+	width:50px;
+}
+.boardTitle
+{
+	font-weight:bold;
+}
+.boardAuthor
+{
+	text-align:right;
+}
+.boardContent
+{
+	margin-top:50px;
+	padding:15px;
+}
+textarea#content
+{
+	width:672px;
+}
+@media screen and (min-width:512px) and (max-width:1024px)
+{
+	textarea#content
+	{
+		width:400px;
+	}
+	body div.bodyWrapper
+	{
+		margin:0 auto;		
+		margin-top:150px;		
+	}
+	body div.boardWrapper
+	{
+		margin:0 auto;
+		width:530px;
+	}	
+	div.borad table
+	{
+		border:1px solid black;
+		width:530px;
+	}
+}
+div.menu
+{
+	text-align:right;
+}
