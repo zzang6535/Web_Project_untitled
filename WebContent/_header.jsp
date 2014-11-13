@@ -17,6 +17,7 @@
 		<script src="/Co-Traveler/bootstrap/js/bootstrap.min.js"></script>	
 	</head>
 	<body>
+	<!-- 민기형  -->
 		<div id="header">
 			<div class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container">
