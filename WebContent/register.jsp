@@ -48,7 +48,7 @@
 </script>
 <div class="bodyWrapper">
 	<div id="registerBox">
-		<form name='registerForm' method="POST" action="action/register.jsp">
+		<form name='registerForm' method="POST" action="/Co-Traveler/user">
 			<h2 class="setup-form-title">회원가입</h2>
 			<br />
 			<dl class="form">
@@ -111,6 +111,7 @@
 			<div class="btn">
 				<button type="button" OnClick="formSubmit()">가입</button>
 			</div>
+			<input type="hidden" name="mode" value="join" />
 		</form>
 	</div> <!-- /.setup-form-container -->
 </div>

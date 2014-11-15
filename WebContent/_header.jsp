@@ -6,9 +6,9 @@
 		mode = "index";
 	}
 %>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-	<head> 
+	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Co-Traveler</title>
 		<link rel="stylesheet" href="/Co-Traveler/common/css/common.css">
@@ -37,7 +37,7 @@
 							<li<%if(mode.equals("rank")){%> class="active"<%}%>><a href="/Co-Traveler/rank.jsp">관광지 랭킹</a></li>
 							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/mypage.jsp">나의 여행 일지</a></li>
 						</ul>
-						<form class="navbar-form navbar-right" action="/Co-Traveler/action/log.jsp" method="POST">
+						<form class="navbar-form navbar-right" action="/Co-Traveler/user" method="POST">
 						<%
 							if(session.getAttribute("id") == null)
 							{
@@ -50,14 +50,14 @@
 							</div>
 							<button type="submit" class="btn btn-success">Sign in</button>
 							<a href="register.jsp"><button type="button" class="btn btn-success">Sign up</button></a>
-							<input type="hidden" name="logMode" value="login" />
+							<input type="hidden" name="mode" value="login" />
 						<%
 							}
 							else
 							{
 						%>
 							<button type="submit" class="btn btn-success">Logout</button>
-							<input type="hidden" name="logMode" value="logout" />
+							<input type="hidden" name="mode" value="logout" />
 						<%
 							}
 						%>
