@@ -8,7 +8,7 @@
 %>
 <!DOCTYPE html> 
 <html>
-	<head>
+	<head> 
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Co-Traveler</title>
 		<link rel="stylesheet" href="/Co-Traveler/common/css/common.css">
