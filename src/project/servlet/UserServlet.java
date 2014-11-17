@@ -53,7 +53,8 @@ public class UserServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		String actionUrl ="index.jsp";
 		User user = null;
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
 		
 		if(mode.equals("login"))
@@ -91,8 +92,6 @@ public class UserServlet extends HttpServlet {
 			String tel = request.getParameter("tel");
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
-			boolean ret = false;
-			
 			//중복된 아이디 검사
 			try {
 				if(UserDAO.checkUser(id))
@@ -122,7 +121,6 @@ public class UserServlet extends HttpServlet {
 				try {
 					if (UserDAO.createUser(u)) 
 					{
-						ret = true;
 						request.setAttribute("msg", id+" 가입완료");
 						actionUrl = "action/success.jsp";
 					}
@@ -137,6 +135,65 @@ public class UserServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		}
+		else if(mode.equals("withdrawal"))
+		{
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			
+			ArrayList<String> errorMsgs = new ArrayList<String>();
+			try 
+			{
+				if (UserDAO.removeUser(id, pw)) 
+				{
+					request.setAttribute("msg", id+" 탈퇴 완료");
+					actionUrl = "action/success.jsp";
+				}
+				else
+				{
+					errorMsgs.add("탈퇴 실패");
+					request.setAttribute("errorMsgs", errorMsgs);
+					actionUrl = "action/error.jsp";
+				}
+			} 
+			catch (NoSuchAlgorithmException | SQLException
+					| NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(mode.equals("edit"))
+		{
+			User u = null;
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			String tel = request.getParameter("tel");
+			String gender = request.getParameter("gender");
+			
+			u = new User(0, id, pw, name, email, tel, gender);
+			
+			ArrayList<String> errorMsgs = new ArrayList<String>();
+			try 
+			{
+				if (UserDAO.updateUser(u)) 
+				{
+					request.setAttribute("msg", id+" 정보수정 완료");
+					actionUrl = "action/success.jsp";
+				}
+				else
+				{
+					errorMsgs.add("정보수정 실패");
+					request.setAttribute("errorMsgs", errorMsgs);
+					actionUrl = "action/error.jsp";
+				}
+			} 
+			catch (NoSuchAlgorithmException | SQLException
+					| NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

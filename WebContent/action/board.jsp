@@ -75,7 +75,8 @@
 	else
 	{
 		//업로드 폴더의 실제 경로 얻어오기
-		String dir = "C:/Users/Seunggabi/github/workspace/Co-Traveler/WebContent/upload";
+		String dir = "../upload";
+		//String dir = "C:/Users/Seunggabi/github/workspace/Co-Traveler/WebContent/upload";
 		System.out.println(dir);
 		//MultipartRequest 객체 생성하기.(파일하고 같이 넘어오기 때문에 mr을 써줘야 한다.)
 		MultipartRequest mr=new MultipartRequest(request,

@@ -114,10 +114,10 @@ public class UserDAO {
 					"WHERE id=?"
 					);
 			stmt.setString(1,  user.getPw());
-			stmt.setString(2,  "seunggabi");
-			stmt.setString(3,  user.getGender());
-			stmt.setString(4,  user.getEmail());
-			stmt.setString(5,  user.getTel());
+			stmt.setString(2,  user.getName());
+			stmt.setString(3,  user.getEmail());
+			stmt.setString(4,  user.getTel());
+			stmt.setString(5,  user.getGender());
 			stmt.setString(6,  user.getId());
 			
 			result = stmt.executeUpdate();
@@ -131,28 +131,31 @@ public class UserDAO {
 		return (result == 1);		
 	}
 	
-	public static boolean removeUser(int id) throws NamingException, SQLException {
-		int result;
-
+	public static boolean removeUser(String id, String pw) throws NamingException, SQLException, NoSuchAlgorithmException {
+		int result = 0;
+		User u = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		DataSource ds = getDataSource();
-		
-		try {
-			conn = ds.getConnection();
-
-			// 질의 준비
-			stmt = conn.prepareStatement("DELETE FROM users WHERE idx=?");
-			stmt.setInt(1, id);
-			
-			// 수행
-			result = stmt.executeUpdate();
-		} finally {
-			// 무슨 일이 있어도 리소스를 제대로 종료
-			if (rs != null) try{rs.close();} catch(SQLException e) {}
-			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
-			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		u = UserDAO.login(id, pw);
+		if(u != null)
+		{
+			try {
+				conn = ds.getConnection();
+	
+				// 질의 준비
+				stmt = conn.prepareStatement("DELETE FROM users WHERE idx=?");
+				stmt.setInt(1, u.getIdx());
+				
+				// 수행
+				result = stmt.executeUpdate();
+			} finally {
+				// 무슨 일이 있어도 리소스를 제대로 종료
+				if (rs != null) try{rs.close();} catch(SQLException e) {}
+				if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+				if (conn != null) try{conn.close();} catch(SQLException e) {}
+			}
 		}
 		
 		return (result == 1);		
@@ -185,9 +188,9 @@ public class UserDAO {
 						,rs.getString("id")
 						,rs.getString("pw")
 						,rs.getString("name")
-						,rs.getString("gender")
 						,rs.getString("email")
-						,rs.getString("tel"));
+						,rs.getString("tel")
+						,rs.getString("gender"));
 		    }				
 	    }
 	    catch (SQLException e)

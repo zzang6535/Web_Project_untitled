@@ -33,5 +33,5 @@
               <Resource name="jdbc/WebDB" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
                username="seunggabi" password="co-traveler" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://54.68.109.68:3306/project"/>
+               url="jdbc:mysql://54.68.109.68:3306/project" />
 </Context>

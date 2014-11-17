@@ -19,8 +19,8 @@ public class User implements java.io.Serializable {
 		super();
 		this.idx = idx;
 		this.id = id;
-		this.name = name;
 		this.pw = pw;
+		this.name = name;
 		this.email = email;
 		this.tel = tel;
 		this.gender = gender;

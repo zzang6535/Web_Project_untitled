@@ -144,3 +144,9 @@ div.menu
 {
 	text-align:right;
 }
+div#myPageBox
+{
+	text-align:center;
+	width:600px;
+	margin:0 auto;
+}
