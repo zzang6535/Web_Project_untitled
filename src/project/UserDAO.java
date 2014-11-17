@@ -70,16 +70,16 @@ public class UserDAO {
 			conn = ds.getConnection();		    
 			stmt = conn.prepareStatement(
 					"INSERT INTO users " +
-					"(id, pw) " +
+					"(id, pw, name, email, tel, gender) " +
 					"VALUES " +
-					"(?, md5(?))" 
+					"(?, md5(?), ?, ?, ?, ?); " 
 					);
 			stmt.setString(1,  user.getId());
 			stmt.setString(2,  user.getPw());
-			/*stmt.setString(3,  user.getName());
-			stmt.setString(4,  user.getGender());
-			stmt.setString(5,  user.getEmail());
-			stmt.setString(6,  user.getTel());*/
+			stmt.setString(3,  user.getName());
+			stmt.setString(4,  user.getEmail());
+			stmt.setString(5,  user.getTel());
+			stmt.setString(6,  user.getGender());
 			
 			result = stmt.executeUpdate();
 		}
@@ -114,7 +114,7 @@ public class UserDAO {
 					"WHERE id=?"
 					);
 			stmt.setString(1,  user.getPw());
-			stmt.setString(2,  user.getName());
+			stmt.setString(2,  "seunggabi");
 			stmt.setString(3,  user.getGender());
 			stmt.setString(4,  user.getEmail());
 			stmt.setString(5,  user.getTel());

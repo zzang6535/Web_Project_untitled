@@ -118,7 +118,7 @@ public class UserServlet extends HttpServlet {
 
 			if (errorMsgs.size() == 0) 
 			{
-				u = new User(0, id, pw, name, gender, email, tel);
+				u = new User(0, id, pw, name, email, tel, gender);
 				try {
 					if (UserDAO.createUser(u)) 
 					{
