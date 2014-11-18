@@ -83,7 +83,6 @@ public class UserServlet extends HttpServlet {
 		}
 		else if(mode.equals("join"))
 		{
-			User u = null;
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
@@ -117,9 +116,9 @@ public class UserServlet extends HttpServlet {
 
 			if (errorMsgs.size() == 0) 
 			{
-				u = new User(0, id, pw, name, email, tel, gender);
+				user = new User(0, id, pw, name, email, tel, gender);
 				try {
-					if (UserDAO.createUser(u)) 
+					if (UserDAO.createUser(user)) 
 					{
 						request.setAttribute("msg", id+" 가입완료");
 						actionUrl = "action/success.jsp";
@@ -139,7 +138,7 @@ public class UserServlet extends HttpServlet {
 		}
 		else if(mode.equals("withdrawal"))
 		{
-			String id = request.getParameter("id");
+			String id = (String) session.getAttribute("id");
 			String pw = request.getParameter("pw");
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
@@ -147,6 +146,7 @@ public class UserServlet extends HttpServlet {
 			{
 				if (UserDAO.removeUser(id, pw)) 
 				{
+					session.invalidate();
 					request.setAttribute("msg", id+" 탈퇴 완료");
 					actionUrl = "action/success.jsp";
 				}
@@ -165,20 +165,19 @@ public class UserServlet extends HttpServlet {
 		}
 		else if(mode.equals("edit"))
 		{
-			User u = null;
-			String id = request.getParameter("id");
+			String id = (String) session.getAttribute("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String tel = request.getParameter("tel");
 			String gender = request.getParameter("gender");
 			
-			u = new User(0, id, pw, name, email, tel, gender);
+			user = new User(0, id, pw, name, email, tel, gender);
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
 			try 
 			{
-				if (UserDAO.updateUser(u)) 
+				if (UserDAO.updateUser(user)) 
 				{
 					request.setAttribute("msg", id+" 정보수정 완료");
 					actionUrl = "action/success.jsp";

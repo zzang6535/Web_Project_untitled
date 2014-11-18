@@ -144,7 +144,7 @@ public class BoardDAO {
 		}
 		return cnt;
 	}
-	public static boolean createBoard(Board board) throws SQLException, NamingException, NoSuchAlgorithmException
+	public static boolean writeBoard(Board board) throws SQLException, NamingException, NoSuchAlgorithmException
 	{
 		int result = 0;
 		
@@ -217,8 +217,8 @@ public class BoardDAO {
 		return (result == 1);		
 	}
 	
-	public static boolean removeBoard(int id) throws NamingException, SQLException {
-		int result;
+	public static boolean removeBoard(String b_id, String u_id) throws NamingException, SQLException {
+		int result = 0;
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -228,8 +228,9 @@ public class BoardDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement("DELETE FROM users WHERE b_id=?");
-			stmt.setInt(1, id);
+			stmt = conn.prepareStatement("DELETE FROM board WHERE b_id=? AND u_id=?");
+			stmt.setInt(1, Integer.parseInt(b_id));
+			stmt.setString(2, u_id);
 			
 			// 수행
 			result = stmt.executeUpdate();

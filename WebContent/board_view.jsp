@@ -12,7 +12,7 @@
 	{
 		if(confirm("정말 삭제하시겠습니까?"))
 		{
-			location.href = "/Co-Traveler/action/board.jsp?mode=delete&b_id="+b_id;	
+			location.href = "/Co-Traveler/board?mode=delete&b_id="+b_id;	
 		}
 	}
 </script>
