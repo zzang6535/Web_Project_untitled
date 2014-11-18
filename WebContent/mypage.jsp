@@ -12,6 +12,7 @@
 		}
 	}
 </script>
+<%if(session.getAttribute("id") != null){ %>
 <div class="bodyWrapper">
 	<div id="myPageBox">
 		<form name="withdrawal" method="POST" action="/Co-Traveler/user">
@@ -30,4 +31,5 @@
 	   	</a>
 	</div>
 </div>
+<%} %>
 <%@include file="_footer.jsp" %>

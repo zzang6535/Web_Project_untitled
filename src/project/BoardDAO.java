@@ -75,8 +75,8 @@ public class BoardDAO {
 		    			,rs.getString("name")
 		    			,rs.getString("u_id")
 		    			,rs.getString("title")
-		    			,rs.getString("u_id")
 		    			,rs.getString("content")
+		    			,rs.getString("wtime")
 		    			,rs.getInt("cnt")
 		    			,rs.getString("ofilename")
 		    			,rs.getString("sfilename")
@@ -197,14 +197,12 @@ public class BoardDAO {
 			// 질의 준비
 			stmt = conn.prepareStatement(
 					"UPDATE board " +
-					"SET title=?, content=?, ofilename=?, sfilename=? " +
-					"WHERE id=?"
+					"SET title=?, content=? " +
+					"WHERE b_id=?"
 					);
 			stmt.setString(1,  board.getTitle());
 			stmt.setString(2,  board.getContent());
-			stmt.setString(3,  board.getOfilename());
-			stmt.setString(4,  board.getSfilename());
-			stmt.setInt(5,  board.getB_id());
+			stmt.setInt(3,  board.getB_id());
 			
 			result = stmt.executeUpdate();
 		} finally {
@@ -249,23 +247,24 @@ public class BoardDAO {
 	{
 		
 		PreparedStatement stmt = null;
-		ResultSet rs = null;		
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
 
 		if (page <= 0) 
 		{
 			page = 1;
 		}
-		
-		DataSource ds = getDataSource();
 		PageResult<Board> result = new PageResult<Board>(numItemsInPage, page);
 		
 		int startPos = (page - 1) * numItemsInPage;
 
     	try 
-    	{
-			conn = ds.getConnection();			
+    	{ 
 			result.setNumItems(boardListCnt(boardName));
 
+			conn = ds.getConnection();
+
+			// 질의 준비
 			stmt = conn.prepareStatement("SELECT * FROM board WHERE name=? ORDER BY b_id DESC LIMIT " + startPos + ", " + numItemsInPage);
 			stmt.setString(1, boardName);
 			rs = stmt.executeQuery();	
@@ -276,8 +275,8 @@ public class BoardDAO {
 		    			,rs.getString("name")
 		    			,rs.getString("u_id")
 		    			,rs.getString("title")
-		    			,rs.getString("u_id")
 		    			,rs.getString("content")
+		    			,rs.getString("wtime")
 		    			,rs.getInt("cnt")
 		    			,rs.getString("ofilename")
 		    			,rs.getString("sfilename")

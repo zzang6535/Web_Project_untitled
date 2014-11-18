@@ -1,19 +1,14 @@
 package project.servlet;
 
-import java.awt.List;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.naming.*;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import project.*;
 
@@ -36,10 +31,7 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String page = request.getParameter("page");
 		String actionUrl = "";
-		boolean ret;
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
 		
@@ -53,9 +45,9 @@ public class UserServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		String actionUrl ="index.jsp";
 		User user = null;
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=utf-8");
 		
 		if(mode.equals("login"))
 		{
@@ -64,7 +56,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				user = UserDAO.login(id, pw);
 			} catch (NoSuchAlgorithmException | SQLException | NamingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -89,6 +80,10 @@ public class UserServlet extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String tel = request.getParameter("tel");
+			//한글 인코딩이 안되서 넣어줌 왜안될까?
+			if(name != null) {
+			    name = new String(name.getBytes("8859_1"), "UTF-8");
+			}
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
 			//중복된 아이디 검사

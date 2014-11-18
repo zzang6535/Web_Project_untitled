@@ -23,7 +23,7 @@
 			</table>
 			<input type="button" onclick="submit()" value="저장"></input>
 			<input type="hidden" name="mode" value="write"></input>
-			<input type="hidden" name="table" value="<%=pageMode %>"/>
+			<input type="hidden" name="boardName" value="<%=pageMode %>"/>
 		</form>
 	</div>
 </div>	

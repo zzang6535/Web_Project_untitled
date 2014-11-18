@@ -95,7 +95,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="text">
+					<input name="email" size="30" type="email">
 					<p class="note"></p>
 				</dd>
 			</dl>
