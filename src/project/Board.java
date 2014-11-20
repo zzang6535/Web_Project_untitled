@@ -15,6 +15,25 @@ public class Board implements java.io.Serializable {
 	private String sfilename;
 	
 	public Board(){}
+	public Board( String u_id, String name, String title, String content )
+	{
+		this.u_id = u_id;
+		this.name = name;
+		this.title = title;
+		this.content = content;
+		this.ofilename = "";
+		this.sfilename = "";
+	}
+	public Board(int b_id, String u_id, String name, String title, String content )
+	{
+		this.b_id = b_id;
+		this.u_id = u_id;
+		this.name = name;
+		this.title = title;
+		this.content = content;
+		this.ofilename = "";
+		this.sfilename = "";
+	}
 	public Board( int b_id, String name, String u_id, String title,
 			String content, String wtime, int cnt, String ofilename, String sfilename)
 			{

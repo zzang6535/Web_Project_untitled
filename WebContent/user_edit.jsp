@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String pageMode = "register";
+	String pageMode = "userEdit";
 %>
 <%@include file="_header.jsp" %>
 <script>
@@ -49,20 +49,21 @@
 <div class="bodyWrapper">
 	<div id="registerBox">
 		<form name='registerForm' method="POST" action="/Co-Traveler/user">
-			<h2 class="setup-form-title">회원가입</h2>
+			<h2 class="setup-form-title">정보수정</h2>
 			<br />
 			<dl class="form">
 				<dt class="input-label">
 					<label>ID</label>
 				</dt>
 				<dd>
-					<input name="id" size="30" type="text">
+					<%=session.getAttribute("id") %>
+					<input type="hidden" name="id" value="<%=session.getAttribute("id") %>"/>
 					<p class="note"></p>
 				</dd>
 			</dl>
 			<dl class="form">
 				<dt class="input-label">
-					<label>Password</label>
+					<label>New Password</label>
 				</dt>
 				<dd>
 					<input name="pw" size="30" type="password">
@@ -74,7 +75,7 @@
 					<label>Name</label>
 				</dt>
 				<dd>
-					<input name="name" size="30" type="text">
+					<%=session.getAttribute("name") %>
 					<p class="note"></p>
 				</dd>
 			</dl>			
@@ -84,9 +85,9 @@
 				</dt>
 				<dd>
 					남
-					<input name="gender" value="M" type="radio">
+					<input name="gender" value="M" type="radio" <% if(session.getAttribute("gender").equals("M")) out.println("checked=true");%>>
 					여
-					<input name="gender" value="F" type="radio">
+					<input name="gender" value="F" type="radio" <% if(session.getAttribute("gender").equals("F")) out.println("checked=true");%>>
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -95,7 +96,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="email">
+					<input name="email" size="30" type="text" value="<%=session.getAttribute("email") %>">
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -104,14 +105,14 @@
 					<label>Tel</label>
 				</dt>
 				<dd>
-					<input name="tel" size="30" type="text">
+					<input name="tel" size="30" type="text" value="<%=session.getAttribute("tel") %>">
 					<p class="note"></p>
 				</dd>
 			</dl>												
 			<div class="btn">
-				<button type="button" OnClick="formSubmit()">가입</button>
+				<button type="button" OnClick="formSubmit()">수정</button>
 			</div>
-			<input type="hidden" name="mode" value="join" />
+			<input type="hidden" name="mode" value="edit" />
 		</form>
 	</div> <!-- /.setup-form-container -->
 </div>

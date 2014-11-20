@@ -75,8 +75,8 @@ public class BoardDAO {
 		    			,rs.getString("name")
 		    			,rs.getString("u_id")
 		    			,rs.getString("title")
-		    			,rs.getString("u_id")
 		    			,rs.getString("content")
+		    			,rs.getString("wtime")
 		    			,rs.getInt("cnt")
 		    			,rs.getString("ofilename")
 		    			,rs.getString("sfilename")
@@ -144,7 +144,7 @@ public class BoardDAO {
 		}
 		return cnt;
 	}
-	public static boolean createBoard(Board board) throws SQLException, NamingException, NoSuchAlgorithmException
+	public static boolean writeBoard(Board board) throws SQLException, NamingException, NoSuchAlgorithmException
 	{
 		int result = 0;
 		
@@ -158,9 +158,9 @@ public class BoardDAO {
 				    
 			stmt = conn.prepareStatement(
 					"INSERT INTO board " +
-							"(name, title, content, u_id, ofilename, sfilename, wtime) " +
+							"(name, title, content, u_id, ofilename, sfilename, wtime, cnt) " +
 							"VALUES " +
-							"(?, ?, ?, ?, ?, ?, NOW())" 
+							"(?, ?, ?, ?, ?, ?, NOW(), 0)" 
 					);
 			stmt.setString(1,  board.getName());
 			stmt.setString(2,  board.getTitle());
@@ -197,14 +197,12 @@ public class BoardDAO {
 			// 질의 준비
 			stmt = conn.prepareStatement(
 					"UPDATE board " +
-					"SET title=?, content=?, ofilename=?, sfilename=? " +
-					"WHERE id=?"
+					"SET title=?, content=? " +
+					"WHERE b_id=?"
 					);
 			stmt.setString(1,  board.getTitle());
 			stmt.setString(2,  board.getContent());
-			stmt.setString(3,  board.getOfilename());
-			stmt.setString(4,  board.getSfilename());
-			stmt.setInt(5,  board.getB_id());
+			stmt.setInt(3,  board.getB_id());
 			
 			result = stmt.executeUpdate();
 		} finally {
@@ -217,8 +215,8 @@ public class BoardDAO {
 		return (result == 1);		
 	}
 	
-	public static boolean removeBoard(int id) throws NamingException, SQLException {
-		int result;
+	public static boolean removeBoard(String b_id, String u_id) throws NamingException, SQLException {
+		int result = 0;
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -228,8 +226,9 @@ public class BoardDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement("DELETE FROM users WHERE b_id=?");
-			stmt.setInt(1, id);
+			stmt = conn.prepareStatement("DELETE FROM board WHERE b_id=? AND u_id=?");
+			stmt.setInt(1, Integer.parseInt(b_id));
+			stmt.setString(2, u_id);
 			
 			// 수행
 			result = stmt.executeUpdate();
@@ -248,23 +247,24 @@ public class BoardDAO {
 	{
 		
 		PreparedStatement stmt = null;
-		ResultSet rs = null;		
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
 
 		if (page <= 0) 
 		{
 			page = 1;
 		}
-		
-		DataSource ds = getDataSource();
 		PageResult<Board> result = new PageResult<Board>(numItemsInPage, page);
 		
 		int startPos = (page - 1) * numItemsInPage;
 
     	try 
-    	{
-			conn = ds.getConnection();			
+    	{ 
 			result.setNumItems(boardListCnt(boardName));
 
+			conn = ds.getConnection();
+
+			// 질의 준비
 			stmt = conn.prepareStatement("SELECT * FROM board WHERE name=? ORDER BY b_id DESC LIMIT " + startPos + ", " + numItemsInPage);
 			stmt.setString(1, boardName);
 			rs = stmt.executeQuery();	
@@ -275,8 +275,8 @@ public class BoardDAO {
 		    			,rs.getString("name")
 		    			,rs.getString("u_id")
 		    			,rs.getString("title")
-		    			,rs.getString("u_id")
 		    			,rs.getString("content")
+		    			,rs.getString("wtime")
 		    			,rs.getInt("cnt")
 		    			,rs.getString("ofilename")
 		    			,rs.getString("sfilename")
