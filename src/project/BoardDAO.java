@@ -158,9 +158,9 @@ public class BoardDAO {
 				    
 			stmt = conn.prepareStatement(
 					"INSERT INTO board " +
-							"(name, title, content, u_id, ofilename, sfilename, wtime) " +
+							"(name, title, content, u_id, ofilename, sfilename, wtime, cnt) " +
 							"VALUES " +
-							"(?, ?, ?, ?, ?, ?, NOW())" 
+							"(?, ?, ?, ?, ?, ?, NOW(), 0)" 
 					);
 			stmt.setString(1,  board.getName());
 			stmt.setString(2,  board.getTitle());
