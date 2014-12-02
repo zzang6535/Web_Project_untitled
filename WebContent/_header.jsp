@@ -34,7 +34,6 @@
 						<ul class="nav navbar-nav">
 							<li<%if(mode.equals("notice")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=notice">공지사항</a></li>
 							<li<%if(mode.equals("event")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=event">이벤트</a></li>
-							<li<%if(mode.equals("rank")){%> class="active"<%}%>><a href="/Co-Traveler/rank.jsp">관광지 랭킹</a></li>
 							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/mypage.jsp">나의 여행 일지</a></li>
 						</ul>
 						<form class="navbar-form navbar-right" action="/Co-Traveler/user" method="POST">
@@ -48,8 +47,15 @@
 							<div class="form-group">
 								<input name='pw' type="password" placeholder="Password" class="form-control">
 							</div>
-							<button type="submit" class="btn btn-success">Sign in</button>
-							<a href="register.jsp"><button type="button" class="btn btn-success">Sign up</button></a>
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Sign in</button>
+							</div>
+							<div class="form-group">
+								<a href="register.jsp"><button type="button" class="btn btn-success">Sign up</button></a>
+							</div>
+							<div class="form-group">
+								<a href="facebook.jsp"><img src="/Co-Traveler/common/img/fb.png" /></a>
+							</div>							
 							<input type="hidden" name="mode" value="login" />
 						<%
 							}

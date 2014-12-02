@@ -74,13 +74,14 @@ public class UserServlet extends HttpServlet {
 		}
 		else if(mode.equals("join"))
 		{
+			String join_type = request.getParameter("join_type");
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String tel = request.getParameter("tel");
-			//한글 인코딩이 안되서 넣어줌 왜안될까?
+			
 			if(name != null) {
 			    name = new String(name.getBytes("8859_1"), "UTF-8");
 			}
@@ -111,7 +112,70 @@ public class UserServlet extends HttpServlet {
 
 			if (errorMsgs.size() == 0) 
 			{
-				user = new User(0, id, pw, name, email, tel, gender);
+				user = new User(0, join_type, id, pw, name, email, tel, gender);
+				try {
+					if (UserDAO.createUser(user)) 
+					{
+						request.setAttribute("msg", id+" 가입완료");
+						actionUrl = "action/success.jsp";
+					}
+					else
+					{
+						errorMsgs.add("변경에 실패하였습니다.");
+						request.setAttribute("errorMsgs", errorMsgs);
+						actionUrl = "action/error.jsp";
+					}
+				} catch (NoSuchAlgorithmException | SQLException
+						| NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(mode.equals("join_facebook"))
+		{
+			String join_type = request.getParameter("join_type");
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			if(gender.equals("male"))
+			{
+				gender = "M";
+			}
+			else
+			{
+				gender = "F";
+			}
+			
+			if(name != null) {
+			    name = new String(name.getBytes("8859_1"), "UTF-8");
+			}
+			
+			ArrayList<String> errorMsgs = new ArrayList<String>();
+			//중복된 아이디 검사
+			try {
+				if(UserDAO.checkUser(id))
+				{
+					errorMsgs.add("이미 "+ id + " 사용자가 있습니다.");
+				}
+			} catch (SQLException | NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if (id == null || id.trim().length() == 0) {
+				errorMsgs.add("ID를 반드시 입력해주세요.");
+			}
+			
+			if (name == null || name.trim().length() == 0) {
+				errorMsgs.add("이름을 반드시 입력해주세요.");
+			}
+			
+			if (errorMsgs.size() == 0) 
+			{
+				user = new User(0, join_type, id, pw, name, "", "", gender);
 				try {
 					if (UserDAO.createUser(user)) 
 					{
@@ -167,7 +231,7 @@ public class UserServlet extends HttpServlet {
 			String tel = request.getParameter("tel");
 			String gender = request.getParameter("gender");
 			
-			user = new User(0, id, pw, name, email, tel, gender);
+			user = new User(0, " ", id, pw, name, email, tel, gender);
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
 			try 

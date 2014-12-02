@@ -43,7 +43,20 @@
 			form.tel.focus();
 			return;
 		}
+		if(!ValidateEmail(form.email.value))
+		{
+			return;
+		}
 		form.submit(); 
+	}
+	function ValidateEmail(mail)   
+	{  
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))  
+		{  
+			return true;  
+		}  
+	    alert("정확한 이메일을 입력해주세요~^^")  
+	    return false;  
 	}
 </script>
 <div class="bodyWrapper">
@@ -95,7 +108,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="email">
+					<input name="email" size="30" type="email" onBlur="ValidateEmail(this.value)")>
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -112,6 +125,7 @@
 				<button type="button" OnClick="formSubmit()">가입</button>
 			</div>
 			<input type="hidden" name="mode" value="join" />
+			<input type="hidden" name="join_type" value="site" />
 		</form>
 	</div> <!-- /.setup-form-container -->
 </div>

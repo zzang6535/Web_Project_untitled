@@ -10,14 +10,16 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String tel;
 	private String gender;
+	private String join_type;
 		
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
-	public User(int idx, String id, String pw, String name, String email,
+	public User(int idx, String join_type, String id, String pw, String name, String email,
 			String tel, String gender) {
 		super();
 		this.idx = idx;
+		this.join_type = join_type;
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
@@ -71,6 +73,12 @@ public class User implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	public String getJoin_type() {
+		return join_type;
+	}
+	public void setJoin_type(String join_type) {
+		this.join_type = join_type;
+	}
+	
 	
 }

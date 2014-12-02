@@ -4,10 +4,9 @@
 %>
 <%@include file="_header.jsp" %>
 <div class="bodyWrapper">
-	<h1>Facebook Information</h1>
-	<div class="container">
+		<div class="container">
 		<h1> Facebook Information </h1>
-			
+		
 		<fb:login-button id="loginButton" scope="public_profile,user_friends" onlogin="checkLoginState();">
 		</fb:login-button>
 
@@ -57,6 +56,22 @@
 				<td class="gender"></td>
 			</tr>
 		</table>
+		<form method="post" action="/Co-Traveler/user">
+			<input id="name" type="hidden" name="name" value="" />
+			<input id="id" type="hidden" name="id" value="" />
+			<input id="join_type" type="hidden" name="join_type" value="facebook" />
+			<input id="gender" type="hidden" name="gender" value="" />
+			<input id="mode" type="hidden" name="mode" value="join_facebook" />
+			패스워드: <input type="password" name="pw" value="" />
+			<input type="submit" value="가입" />
+		</form>
+		<form method="post" action="/Co-Traveler/user">
+			<input id="name" type="hidden" name="name" value="" />
+			<input id="id_login" type="hidden" name="id" value="" />
+			패스워드: <input type="password" name="pw" value="" />
+			<input id="mode" type="hidden" name="mode" value="login" />
+			<input type="submit" value="로그인" />
+		</form>
 	</script>
 </div>
 <script type="text/javascript">
@@ -141,6 +156,11 @@ function addData(data,table){
 	$(table).find('.first_name').text(data.first_name);
 	$(table).find('.last_name').text(data.last_name);
 	$(table).find('.gender').text(data.gender);
+	
+	$(table).find('#name').attr("value", data.name);
+	$(table).find('#id').attr("value", data.id);
+	$(table).find('#id_login').attr("value", data.id);
+	$(table).find('#gender').attr("value", data.gender);	
 }
 </script>
 <%@include file="_footer.jsp" %>

@@ -63,24 +63,40 @@ public class BoardDAO {
 		{
 			conn =  ds.getConnection();
 			stmt = conn.prepareStatement(
-					"SELECT * FROM board " +
-					"WHERE b_id=?"
+					"SELECT * FROM board as b JOIN users as u ON u.id = b.u_id " +
+					"WHERE b.b_id=?"
 					);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();							
 
 		    while(rs.next())
 		    {
-		    	board = new Board( rs.getInt("b_id")
-		    			,rs.getString("name")
-		    			,rs.getString("u_id")
-		    			,rs.getString("title")
-		    			,rs.getString("content")
-		    			,rs.getString("wtime")
-		    			,rs.getInt("cnt")
-		    			,rs.getString("ofilename")
-		    			,rs.getString("sfilename")
+		    	if(rs.getString("u.join_type").equals("site"))
+		    	{
+		    		board = new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,rs.getString("b.u_id")
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
 		    			);
+		    	}
+		    	else
+		    	{
+		    		board = new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,"<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>"
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
+		    			);
+		    	}
 		    	
 		    	if(rs.getString("name").equals("notice"))
 		    	{
@@ -265,22 +281,38 @@ public class BoardDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement("SELECT * FROM board WHERE name=? ORDER BY b_id DESC LIMIT " + startPos + ", " + numItemsInPage);
+			stmt = conn.prepareStatement("SELECT * FROM board as b JOIN users as u ON u.id = b.u_id WHERE b.name=? ORDER BY b.b_id DESC LIMIT " + startPos + ", " + numItemsInPage);
 			stmt.setString(1, boardName);
 			rs = stmt.executeQuery();	
 			
 			while(rs.next()) 
 			{
-				result.getList().add(new Board( rs.getInt("b_id")
-		    			,rs.getString("name")
-		    			,rs.getString("u_id")
-		    			,rs.getString("title")
-		    			,rs.getString("content")
-		    			,rs.getString("wtime")
-		    			,rs.getInt("cnt")
-		    			,rs.getString("ofilename")
-		    			,rs.getString("sfilename")
+				if(rs.getString("u.join_type").equals("site"))
+				{
+					result.getList().add(new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,rs.getString("b.u_id")
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
 		    			));
+				}
+				else
+				{
+					result.getList().add(new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,"<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>"
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
+		    			));
+				}
 			}
 		}
     	finally 

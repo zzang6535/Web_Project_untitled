@@ -70,16 +70,17 @@ public class UserDAO {
 			conn = ds.getConnection();		    
 			stmt = conn.prepareStatement(
 					"INSERT INTO users " +
-					"(id, pw, name, email, tel, gender) " +
+					"(join_type, id, pw, name, email, tel, gender) " +
 					"VALUES " +
-					"(?, md5(?), ?, ?, ?, ?); " 
+					"(?, ?, md5(?), ?, ?, ?, ?); " 
 					);
-			stmt.setString(1,  user.getId());
-			stmt.setString(2,  user.getPw());
-			stmt.setString(3,  user.getName());
-			stmt.setString(4,  user.getEmail());
-			stmt.setString(5,  user.getTel());
-			stmt.setString(6,  user.getGender());
+			stmt.setString(1,  user.getJoin_type());
+			stmt.setString(2,  user.getId());
+			stmt.setString(3,  user.getPw());
+			stmt.setString(4,  user.getName());
+			stmt.setString(5,  user.getEmail());
+			stmt.setString(6,  user.getTel());
+			stmt.setString(7,  user.getGender());
 			
 			result = stmt.executeUpdate();
 		}
@@ -185,6 +186,7 @@ public class UserDAO {
 			while(rs.next())
 		    {                  
 				user = new User(rs.getInt("idx")
+						,rs.getString("join_type")
 						,rs.getString("id")
 						,rs.getString("pw")
 						,rs.getString("name")
