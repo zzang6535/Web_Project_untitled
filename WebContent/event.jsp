@@ -3,6 +3,4 @@
 	String pageMode = "event";
 	String pageName = "이벤트";
 %>
-<%@ page import = "java.sql.*" %>   
-<%@ page import="java.util.*" %> 
 <%@ include file="_board_list.jsp" %>
