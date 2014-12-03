@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+ html { height: 100% }
+ body { height: 100%; margin: 0; padding: 0 }
+ #wrap{ width:100%; height: 100%}
+ #map { width: 60%; height: 100%; float: left; margin: 10px}
+ #enroll {height: 100%}

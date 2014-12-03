@@ -6,9 +6,9 @@
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	
-	String dbUrl = "jdbc:mysql://localhost:3306/test";
-	String dbUser = "googlemap";
-	String dbPassword = "asdf";
+	String dbUrl = "jdbc:mysql://54.68.109.68/project";
+	String dbUser = "seunggabi";
+	String dbPassword = "co-traveler";
 	
 	int result = 0;
 	
@@ -88,7 +88,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<th><textarea rows="20" cols="20" name="content"></textarea></th>
+						<th><textarea rows="10" cols="15" name="content"></textarea></th>
 					</tr>
 				</table>
 				<input type="submit" value="Geocode">
