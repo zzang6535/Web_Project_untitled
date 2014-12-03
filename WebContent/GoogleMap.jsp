@@ -6,7 +6,7 @@
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	
-	String dbUrl = "jdbc:mysql://54.68.109.68/project";
+	String dbUrl = "jdbc:mysql://54.68.109.68/project?characterEncoding=UTF-8";
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
 	
