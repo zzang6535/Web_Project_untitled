@@ -64,6 +64,42 @@ function initialize() {
 				+ address);
 		infowindow.open(map, markerStart);
 	});
+	
+	google.maps.event.addListener(autocompleteDest, 'place_changed', function() {
+		infowindow.close();
+		markerDest.setVisible(false);
+		var place = autocompleteDest.getPlace();
+		if (!place.geometry) {
+			return;
+		}
+
+		// If the place has a geometry, then present it on a map.
+		if (place.geometry.viewport) {
+			map.fitBounds(place.geometry.viewport);
+		} else {
+			map.setCenter(place.geometry.location);
+			map.setZoom(17);
+		}
+
+		markerDest.setPosition(place.geometry.location);
+		markerDest.setVisible(true);
+		
+		var address = '';
+		if (place.address_components) {
+			address = [
+					(place.address_components[2]
+							&& place.address_components[2].short_name || ''),
+					(place.address_components[1]
+							&& place.address_components[1].short_name || ''),
+					(place.address_components[0]
+							&& place.address_components[0].short_name || '')
+			].join(' ');
+		}
+
+		infowindow.setContent('<div><strong>' + place.name + '</strong><br>'
+				+ address);
+		infowindow.open(map, markerDest);
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
