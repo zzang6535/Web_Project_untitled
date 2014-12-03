@@ -7,8 +7,8 @@
 	ResultSet rs = null;
 	
 	String dbUrl = "jdbc:mysql://localhost:3306/test";
-	String dbUser = "root";
-	String dbPassword = "as613200";
+	String dbUser = "googlemap";
+	String dbPassword = "asdf";
 	
 	int result = 0;
 	
@@ -28,12 +28,12 @@
 	src="http://maps.googleapis.com/maps/api/js?
 	key=AIzaSyBEJKMd2ye82eIix9TBpMo9ZzOWcfNgFoo&sensor=TRUE">
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script type="text/javascript" src="./map/googlemaps.js"></script>
 <script src="./map/jquery-2.1.1.min.js"></script>
 <title>Google Map!?</title>
 </head>
-<body onload="initialize()">
+<body>
 	<div id=wrap>
 		<div id="map"></div>
 		<div id="enroll">
@@ -66,11 +66,11 @@
 					</tr>
 					<tr>
 						<th>출발지</th>
-						<td><input type="text" name="trip_start" id="tstart" onChange="startAddress()"></td>
+						<td><input type="text" name="trip_start" id="tstart"></td>
 					</tr>
 					<tr>
 						<th>도착지</th>
-						<td><input type="text" name="trip_dest" id="tdest" onChange="destAddress()"></td>
+						<td><input type="text" name="trip_dest" id="tdest"></td>
 					</tr>
 					<tr>
 						<th>모집인원</th>
