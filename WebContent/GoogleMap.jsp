@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"%>
+
 <%
+	String pageMode = "trip";
 	//DB connection ready
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -19,10 +21,16 @@
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 	
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@include file="_header.jsp" %>
+<script>
+	function checkForm()
+	{
+		if(confirm("정말 탈퇴하시겠습니까?"))
+		{
+			document.withdrawal.submit();			
+		}
+	}
+</script>
 <link rel="stylesheet" href="map/googlemap.css" type="text/css">
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?
@@ -31,10 +39,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script type="text/javascript" src="./map/googlemaps.js"></script>
 <script src="./map/jquery-2.1.1.min.js"></script>
-<title>Google Map!?</title>
-</head>
-<body>
-	<div id=wrap>
+	<div id="wrap">
 		<div id="map"></div>
 		<div id="enroll">
 			<% if(request.getMethod() == "POST"){
@@ -102,6 +107,4 @@
 					if(conn != null) try{conn.close();} catch(SQLException e){}
 			} %>
 		</div>
-	</div>
-</body>
-</html>
+<%@include file="_footer.jsp" %>

@@ -194,7 +194,8 @@ public class UserDAO {
 						,rs.getString("name")
 						,rs.getString("email")
 						,rs.getString("tel")
-						,rs.getString("gender"));
+						,rs.getString("gender")
+						,rs.getString("adm"));
 		    }				
 	    }
 	    catch (SQLException e)

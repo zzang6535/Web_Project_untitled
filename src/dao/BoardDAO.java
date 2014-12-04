@@ -71,7 +71,6 @@ public class BoardDAO {
 					);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();							
-
 		    while(rs.next())
 		    {
 		    	if(rs.getString("u.join_type").equals("site"))
@@ -86,7 +85,7 @@ public class BoardDAO {
 		    			,rs.getString("b.ofilename")
 		    			,rs.getString("b.sfilename")
 		    			);
-		    		board.setWriter(rs.getString("u.name"));
+		    		board.setWriter(rs.getString("u.id"));
 		    	}
 		    	else
 		    	{
@@ -111,9 +110,13 @@ public class BoardDAO {
 		    	{
 		    		board.setKname("이벤트");
 		    	}
+		    	else if(rs.getString("name").equals("community"))
+		    	{
+		    		board.setKname("커뮤니티");
+		    	}
 		    	else
 		    	{
-		    		board.setKname("name");
+		    		board.setKname(rs.getString("b.name"));
 		    	}						
 		    }		
 		    boardCntIncrement(id);
@@ -250,6 +253,32 @@ public class BoardDAO {
 			stmt = conn.prepareStatement("DELETE FROM board WHERE b_id=? AND u_id=?");
 			stmt.setInt(1, Integer.parseInt(b_id));
 			stmt.setString(2, u_id);
+			
+			// 수행
+			result = stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		
+		return (result == 1);		
+	}
+	
+	public static boolean removeBoard(String b_id) throws NamingException, SQLException {
+		int result = 0;
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("DELETE FROM board WHERE b_id=? ");
+			stmt.setInt(1, Integer.parseInt(b_id));
 			
 			// 수행
 			result = stmt.executeUpdate();

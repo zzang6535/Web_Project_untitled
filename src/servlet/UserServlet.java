@@ -67,6 +67,7 @@ public class UserServlet extends HttpServlet {
 		        session.setAttribute("gender",user.getGender());
 		        session.setAttribute("email",user.getEmail());
 		        session.setAttribute("tel",user.getTel());
+		        session.setAttribute("adm",user.getAdm());
 			}
 		}
 		else if(mode.equals("logout"))

@@ -111,11 +111,20 @@ public class BoardServlet extends HttpServlet {
 		{
 			String u_id = (String) session.getAttribute("id");
 			String b_id = request.getParameter("b_id");
+			String adm = (String) session.getAttribute("adm");
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
 			try 
 			{
-				if (BoardDAO.removeBoard(b_id, u_id)) 
+				if (adm.equals("T"))
+				{
+					if(BoardDAO.removeBoard(b_id))
+					{
+						request.setAttribute("msg", " 삭제 완료");
+						actionUrl = "action/success.jsp";
+					}
+				}
+				else if (BoardDAO.removeBoard(b_id, u_id)) 
 				{
 					request.setAttribute("msg", " 삭제 완료");
 					actionUrl = "action/success.jsp";

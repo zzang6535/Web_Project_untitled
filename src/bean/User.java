@@ -11,7 +11,14 @@ public class User implements java.io.Serializable {
 	private String tel;
 	private String gender;
 	private String join_type;
+	private String adm;
 		
+	public String getAdm() {
+		return adm;
+	}
+	public void setAdm(String adm) {
+		this.adm = adm;
+	}
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
@@ -27,7 +34,19 @@ public class User implements java.io.Serializable {
 		this.tel = tel;
 		this.gender = gender;
 	}
-	
+	public User(int idx, String join_type, String id, String pw, String name, String email,
+			String tel, String gender, String adm) {
+		super();
+		this.idx = idx;
+		this.join_type = join_type;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.email = email;
+		this.tel = tel;
+		this.gender = gender;
+		this.adm = adm;
+	}
 	public int getIdx() {
 		return idx;
 	}

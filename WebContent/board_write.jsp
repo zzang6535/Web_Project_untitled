@@ -4,6 +4,21 @@
 	String boardName = "";
 %>
 <%@ include file="_header.jsp" %>
+<%
+	if(pageMode.equals("event") || pageMode.equals("notice"))
+	{
+		if(!session.getAttribute("adm").equals("T"))
+		{
+%>
+<script>
+	alert("관리자만 쓸 수 있습니다.");
+	history.back();
+</script>
+<%
+		return;
+		}
+	}
+%>
 <div class="bodyWrapper">
 	<div class="boardWrapper">
 		<!-- 스마트에디터 CSS, 자바스크립트 관련 자료 설정 -->
