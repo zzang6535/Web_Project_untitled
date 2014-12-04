@@ -75,7 +75,7 @@
 					<label>Name</label>
 				</dt>
 				<dd>
-					<%=session.getAttribute("name") %>
+					<input name="name" size="30" type="text" value="<%=session.getAttribute("name") %>">
 					<p class="note"></p>
 				</dd>
 			</dl>			
@@ -108,7 +108,16 @@
 					<input name="tel" size="30" type="text" value="<%=session.getAttribute("tel") %>">
 					<p class="note"></p>
 				</dd>
-			</dl>												
+			</dl>				
+			<dl class="form">
+				<dt class="input-label">
+					<label>선호 출발지</label>
+				</dt>
+				<dd>
+					<input name="start" size="30" type="text" value="<%=session.getAttribute("start") %>">
+					<p class="note"></p>
+				</dd>
+			</dl>	
 			<div class="btn">
 				<button type="button" OnClick="formSubmit()">수정</button>
 			</div>

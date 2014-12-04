@@ -120,7 +120,16 @@
 					<input name="tel" size="30" type="text">
 					<p class="note"></p>
 				</dd>
-			</dl>												
+			</dl>
+			<dl class="form">
+				<dt class="input-label">
+					<label>선호 출발지</label>
+				</dt>
+				<dd>
+					<input name="start" size="30" type="text">
+					<p class="note"></p>
+				</dd>
+			</dl>
 			<div class="btn">
 				<button type="button" OnClick="formSubmit()">가입</button>
 			</div>

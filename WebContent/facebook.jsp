@@ -5,26 +5,26 @@
 <%@include file="_header.jsp" %>
 <div class="bodyWrapper">
 		<div class="container">
-		<h1> Facebook Information </h1>
-		
+		<h1> Facebook Login Page </h1>
+		<br/><br/>
 		<fb:login-button id="loginButton" scope="public_profile,user_friends" onlogin="checkLoginState();">
 		</fb:login-button>
 
-		<h3>Like Button</h3>
+		<!--<h3>Like Button</h3>
 		<div class="well well-large">
 			<div class="fb-like" data-href="index.jsp" data-send="false" 
 			data-width="450" data-show-faces="true" data-font="tahoma"></div>
 		</div>
-		<hr></hr>
+		<hr></hr>-->
 
 		<h3> My Facebook Information </h3>
 		<div id="me" class="container">
 		</div>
 
-		<hr></hr>
+		<!--<hr></hr>
 		<h3> My Facebook Friend List </h3>
 		<div id="friend" class="container"> 
-		</div>
+		</div>-->
 	</div>
 	
 	<script type="text/template" id="template-table">

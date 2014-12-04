@@ -72,9 +72,9 @@ public class UserDAO {
 			conn = ds.getConnection();		    
 			stmt = conn.prepareStatement(
 					"INSERT INTO users " +
-					"(join_type, id, pw, name, email, tel, gender) " +
+					"(join_type, id, pw, name, email, tel, gender, start) " +
 					"VALUES " +
-					"(?, ?, md5(?), ?, ?, ?, ?); " 
+					"(?, ?, md5(?), ?, ?, ?, ?, ?); " 
 					);
 			stmt.setString(1,  user.getJoin_type());
 			stmt.setString(2,  user.getId());
@@ -83,6 +83,7 @@ public class UserDAO {
 			stmt.setString(5,  user.getEmail());
 			stmt.setString(6,  user.getTel());
 			stmt.setString(7,  user.getGender());
+			stmt.setString(8,  user.getStart());
 			
 			result = stmt.executeUpdate();
 		}
@@ -113,7 +114,7 @@ public class UserDAO {
 			// 질의 준비
 			stmt = conn.prepareStatement(
 					"UPDATE users " +
-					"SET pw=md5(?), name=?, email=?, tel=?, gender=? " +
+					"SET pw=md5(?), name=?, email=?, tel=?, gender=?, start=?" +
 					"WHERE id=?"
 					);
 			stmt.setString(1,  user.getPw());
@@ -121,7 +122,8 @@ public class UserDAO {
 			stmt.setString(3,  user.getEmail());
 			stmt.setString(4,  user.getTel());
 			stmt.setString(5,  user.getGender());
-			stmt.setString(6,  user.getId());
+			stmt.setString(6,  user.getStart());
+			stmt.setString(7,  user.getId());
 			
 			result = stmt.executeUpdate();
 		} finally {
@@ -195,6 +197,7 @@ public class UserDAO {
 						,rs.getString("email")
 						,rs.getString("tel")
 						,rs.getString("gender")
+						,rs.getString("start")
 						,rs.getString("adm"));
 		    }				
 	    }

@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"%>
-
 <%
+	if(session.getAttribute("id") == null)
+	{
+%>
+<script>
+	alert('회원만 여행을 등록할 수 있습니다.');
+	history.back();
+</script>
+<%
+	return;
+	}
+	
 	String pageMode = "trip";
-	//DB connection ready
+
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
@@ -50,21 +60,39 @@
 					String dest = request.getParameter("trip_dest");
 					String numTrip = request.getParameter("num_member");
 					String content = request.getParameter("content");
+					String userId = (String)session.getAttribute("id");
+					String userName = (String)session.getAttribute("name");
 					
-					stmt = conn.prepareStatement("INSERT INTO trip(title, start, dest, tripnum, content) VALUES(?, ?, ?, ?, ?)");
-					stmt.setString(1, title);
-					stmt.setString(2, start);
-					stmt.setString(3, dest);
-					stmt.setString(4, numTrip);
-					stmt.setString(5, content);
+					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content) VALUES(?, ?, ?, ?, ?, ?)");
+					stmt.setString(1, userId);
+					stmt.setString(2, title);
+					stmt.setString(3, start);
+					stmt.setString(4, dest);
+					stmt.setString(5, numTrip);
+					stmt.setString(6, content);
 
 					result = stmt.executeUpdate();
 					if(result != 1){
 						out.println("실패");
 					}
-				} else { %>
+				} else { 
+					String userId = (String)session.getAttribute("id");
+					String userName = (String)session.getAttribute("name");
+					String userLink = userId;
+					if(session.getAttribute("join_type") != null)
+					{
+						if(session.getAttribute("join_type").equals("facebook"))
+						{
+							userLink = "<a href = 'https://www.facebook.com/app_scoped_user_id/"+userId+"'>"+userName+"</a>";
+						}
+					}
+					%>
 			<form class="form-trip" method="post">
 				<table>
+					<tr>
+						<th>주최</th>
+						<td><%=userLink%></td>
+					</tr>
 					<tr>
 						<th>Trip</th>
 						<td><input type="text" name="trip_title"></td>

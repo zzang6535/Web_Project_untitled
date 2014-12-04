@@ -12,18 +12,13 @@ public class User implements java.io.Serializable {
 	private String gender;
 	private String join_type;
 	private String adm;
-		
-	public String getAdm() {
-		return adm;
-	}
-	public void setAdm(String adm) {
-		this.adm = adm;
-	}
+	private String start;
+
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
 	public User(int idx, String join_type, String id, String pw, String name, String email,
-			String tel, String gender) {
+			String tel, String gender, String start) {
 		super();
 		this.idx = idx;
 		this.join_type = join_type;
@@ -33,9 +28,10 @@ public class User implements java.io.Serializable {
 		this.email = email;
 		this.tel = tel;
 		this.gender = gender;
+		this.start = start;
 	}
 	public User(int idx, String join_type, String id, String pw, String name, String email,
-			String tel, String gender, String adm) {
+			String tel, String gender, String start,  String adm) {
 		super();
 		this.idx = idx;
 		this.join_type = join_type;
@@ -45,6 +41,7 @@ public class User implements java.io.Serializable {
 		this.email = email;
 		this.tel = tel;
 		this.gender = gender;
+		this.start = start;
 		this.adm = adm;
 	}
 	public int getIdx() {
@@ -98,6 +95,21 @@ public class User implements java.io.Serializable {
 	public void setJoin_type(String join_type) {
 		this.join_type = join_type;
 	}
-	
-	
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getAdm() {
+		return adm;
+	}
+	public void setAdm(String adm) {
+		this.adm = adm;
+	}	
+	public String facebookUserName()
+	{
+		return "<a href = 'https://www.facebook.com/app_scoped_user_id/"+this.id+"'>"+this.name+"</a>";	
+	}
 }
+

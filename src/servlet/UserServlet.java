@@ -67,7 +67,9 @@ public class UserServlet extends HttpServlet {
 		        session.setAttribute("gender",user.getGender());
 		        session.setAttribute("email",user.getEmail());
 		        session.setAttribute("tel",user.getTel());
+		        session.setAttribute("start",user.getStart());
 		        session.setAttribute("adm",user.getAdm());
+		        session.setAttribute("join_type", user.getJoin_type());
 			}
 		}
 		else if(mode.equals("logout"))
@@ -83,6 +85,7 @@ public class UserServlet extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String tel = request.getParameter("tel");
+			String start = request.getParameter("start");
 			
 			if(name != null) {
 			    name = new String(name.getBytes("8859_1"), "UTF-8");
@@ -114,7 +117,7 @@ public class UserServlet extends HttpServlet {
 
 			if (errorMsgs.size() == 0) 
 			{
-				user = new User(0, join_type, id, pw, name, email, tel, gender);
+				user = new User(0, join_type, id, pw, name, email, tel, gender, start);
 				try {
 					if (UserDAO.createUser(user)) 
 					{
@@ -177,7 +180,7 @@ public class UserServlet extends HttpServlet {
 			
 			if (errorMsgs.size() == 0) 
 			{
-				user = new User(0, join_type, id, pw, name, "", "", gender);
+				user = new User(0, join_type, id, pw, name, "", "", gender, "");
 				try {
 					if (UserDAO.createUser(user)) 
 					{
@@ -232,15 +235,24 @@ public class UserServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String tel = request.getParameter("tel");
 			String gender = request.getParameter("gender");
+			String start = request.getParameter("start");
 			
-			user = new User(0, " ", id, pw, name, email, tel, gender);
+			if(name != null) {
+				name = new String(name.getBytes("8859_1"), "UTF-8");
+			}
+			if(start != null) {
+				start = new String(start.getBytes("8859_1"), "UTF-8");
+			}
+			
+			user = new User(0, " ", id, pw, name, email, tel, gender, start);
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
 			try 
 			{
 				if (UserDAO.updateUser(user)) 
 				{
-					request.setAttribute("msg", id+" 정보수정 완료");
+					request.setAttribute("msg", id+" 정보수정 완료, 다시 로그인 해주십시오");
+					session.invalidate();
 					actionUrl = "action/success.jsp";
 				}
 				else
