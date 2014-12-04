@@ -139,6 +139,10 @@ textarea#content
 		border:1px solid black;
 		width:530px;
 	}
+	#myPageBox
+	{
+		width:530px !important;
+	}
 }
 @media screen and (min-width:0px) and (max-width:512px)
 {
@@ -160,6 +164,10 @@ textarea#content
 	{
 		border:1px solid black;
 		width:350px;
+	}
+	#myPageBox
+	{
+		width:350px !important;
 	}
 }
 div.menu
