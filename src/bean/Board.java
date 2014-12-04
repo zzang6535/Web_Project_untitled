@@ -1,4 +1,4 @@
-package project;
+package bean;
 
 public class Board implements java.io.Serializable {
 	private static final long serialVersionUID = 2193897931951340673L;
@@ -13,6 +13,7 @@ public class Board implements java.io.Serializable {
 	private int cnt;
 	private String ofilename;
 	private String sfilename;
+	private String writer;
 	
 	public Board(){}
 	public Board( String u_id, String name, String title, String content )
@@ -111,6 +112,11 @@ public class Board implements java.io.Serializable {
 	public void setKname(String kname) {
 		this.kname = kname;
 	}
-	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	
 }

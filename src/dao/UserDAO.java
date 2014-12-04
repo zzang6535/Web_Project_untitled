@@ -1,10 +1,12 @@
-package project;
+package dao;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 import javax.naming.*;
 import javax.sql.*;
+
+import bean.User;
 
 public class UserDAO {   
 	private static Connection conn;

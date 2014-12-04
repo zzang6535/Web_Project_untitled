@@ -33,7 +33,7 @@
 					<c:forEach var="board" items="${boards.list }" varStatus="i">
 						<tr>
 							<td>${boardListCnt - (boards.page-1)*10 - i.index }</td>
-							<td><a href='/Co-Traveler/board?mode=view&b_id=${board.b_id }&pageMode=<%=pageMode%>'>${board.title}</a></td>
+							<td><a href='/Co-Traveler/board?mode=view&b_id=${board.b_id }&pageMode=<%=pageMode%>'>${board.title}&nbsp;</a></td>
 							<td>${board.u_id}</td>
 							<td>${board.wtime}</td>
 							<td>${board.cnt}</td>

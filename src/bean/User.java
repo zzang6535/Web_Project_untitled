@@ -1,4 +1,4 @@
-package project;
+package bean;
 
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 2193897931951333123L;

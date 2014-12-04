@@ -22,12 +22,13 @@
 		<div class="boradContent">
 				<div class="boardTitle"><h2>[${board.kname}]&nbsp;&nbsp;&nbsp;${board.title}</h2></div>
 				<div class="boardAuthor">
-					작성자 : ${board.u_id}
+					작성자 : ${board.writer}
 					<c:if test="${sessionScope.id == board.u_id}">
 						<input type="button" value="수정" onClick="ed('${board.b_id}')"/>
 						<input type="button" value="삭제" onClick="rm('${board.b_id}')"/>
 					</c:if>
 				</div>
+				<br /><br />
 				<div>${board.content}</div>				
 		</div>
 	</div>

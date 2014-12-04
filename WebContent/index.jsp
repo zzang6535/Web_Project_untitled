@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$('#banner-slide').bjqs({
-			animtype      : 'slide',
+			animtype      : 'fade',
 			height        : 700,
 			width         : 1000,
 			responsive    : true,

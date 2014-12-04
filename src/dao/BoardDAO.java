@@ -1,4 +1,4 @@
-package project;
+package dao;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -10,6 +10,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import bean.Board;
+import bean.PageResult;
 
 public class BoardDAO {
 	private static Connection conn;
@@ -83,12 +86,13 @@ public class BoardDAO {
 		    			,rs.getString("b.ofilename")
 		    			,rs.getString("b.sfilename")
 		    			);
+		    		board.setWriter(rs.getString("u.name"));
 		    	}
 		    	else
 		    	{
 		    		board = new Board( rs.getInt("b.b_id")
 		    			,rs.getString("b.name")
-		    			,"<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>"
+		    			,rs.getString("b.u_id")
 		    			,rs.getString("b.title")
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
@@ -96,6 +100,7 @@ public class BoardDAO {
 		    			,rs.getString("b.ofilename")
 		    			,rs.getString("b.sfilename")
 		    			);
+		    		board.setWriter("<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>");
 		    	}
 		    	
 		    	if(rs.getString("name").equals("notice"))

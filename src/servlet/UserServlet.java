@@ -1,4 +1,4 @@
-package project.servlet;
+package servlet;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +10,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import project.*;
+import dao.*;
+import bean.*;
 
 /**
  * Servlet implementation class User
