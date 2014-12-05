@@ -1,7 +1,6 @@
 var map;
 
 function initialize() {
-	geocoder = new google.maps.Geocoder();
 	var myLating = new google.maps.LatLng(37.555775, 126.972472);
 	var mapOptions = {
 		center : myLating,
