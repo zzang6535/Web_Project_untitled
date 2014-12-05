@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"%>
 <%
+/*
 	//DB connection ready
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -10,18 +11,17 @@
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
 	
+	String rspPlace = request.getParameter("Pot");
 	String address="";
-	double geoX=0.0;
-	double geoY=0.0;
-	
-	int result = 0;
+	String geoX="";
+	String geoY="";
 	
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
 		
 		//DB Connection
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-		
+	*/	
 %>
 <!DOCTYPE html>
 <html>
@@ -32,57 +32,10 @@
 	<script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?
 	key=AIzaSyBEJKMd2ye82eIix9TBpMo9ZzOWcfNgFoo&sensor=TRUE">
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 	<link type="text/css" rel="stylesheet" href="./map/googlemap_show.css">
-	<script type="text/javascript">
-	function initialize() {
-		var mapOptions = {
-			center : new google.maps.LatLng(37.555775, 126.972472),
-			zoom : 13
-		};
-		var map = new google.maps.Map(document.getElementById('map'),
-				mapOptions);		
-
-		var inputStart =document.getElementById('start_search');
-		var inputDest = document.getElementById('dest_search');
-		var searchBar = document.getElementById('search_bar');
-		
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchBar);
-	
-		var autocompleteStart = new google.maps.places.Autocomplete(inputStart);
-		var autocompleteDest = new google.maps.palces.Autocomplete(inputDest);
-		autocompleteStart.bindTo('bounds', map);
-		autocompleteDest.bindTo('bounds', map);
-		
-		
-		var infowindow = new google.maps.InfoWindow();
-		
-		google.maps.event.addListener(autocompleteStart, 'place_changed', function() {
-			var markers[];
-			var place = autocompleteStart.getPlace();
-			<%
-				stmt = conn.prepareStatement("SELECT start, spos_x, spos_y FROM trip WHERE address like ?");
-				String st = "%" +"%";
-				stmt.setString(1, st);
-				
-				rs = stmt.executeQuery();
-				
-				while(rs.next()){
-					address = rs.getString("start");
-					geoX = rs.getDouble("spos_x");
-					geoY = rs.getDouble("spos_y");
-			%>
-					markers.push(new google.maps.Marker({
-					map : map,
-					position : new google.maps.LatLng(<%=geoX%>,<%=geoY%>)		
-				}));
-			<%}%>
-		});
-		
-	}
-	google.maps.event.addDomListener(window, 'load', initialize);
-	</script>
+	<script type="text/javascript" src="./map/googlemap_show.js"></script>
 </head>
 <body>
 	<div id="search_bar" class="controls">
@@ -92,13 +45,28 @@
     		placeholder="도착지">
 	</div>
     <div id="map"></div>
-  <% 
-			} catch(SQLException e){
+    <% 
+    /*
+    	if(rspPlace != null){
+    		stmt = conn.prepareStatement("SELECT start, spos_x, spos_y FROM trip WHERE start like ?");
+				stmt.setString(1, rspPlace);
+				
+				rs = stmt.executeQuery();
+				
+				while(rs.next()){
+					address = rs.getString("start");
+					geoX = rs.getString("spos_x");
+					geoY = rs.getString("spos_y");
+					response.getWriter().println(address + "," + geoX + "," + geoY);
+				}
+    	}
+		} catch(SQLException e){
 					out.println("SQL error");
-			} finally {
+		} finally {
 					if(rs != null) try{rs.close();} catch(SQLException e){}
 					if(stmt != null) try{stmt.close();} catch(SQLException e){}
 					if(conn != null) try{conn.close();} catch(SQLException e){}
-	} %>
+	}*/ 
+	%>
 </body>
 </html>
