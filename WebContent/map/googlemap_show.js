@@ -18,7 +18,7 @@ function initialize() {
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchBar);
 		
 		var autocompleteStart = new google.maps.places.Autocomplete(inputStart, options);
-		var autocompleteDest = new google.maps.palces.Autocomplete(inputDest, options);
+		var autocompleteDest = new google.maps.places.Autocomplete(inputDest, options);
 		autocompleteStart.bindTo('bounds', map);
 		autocompleteDest.bindTo('bounds', map);
 		
