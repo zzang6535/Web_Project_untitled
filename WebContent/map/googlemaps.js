@@ -138,7 +138,7 @@ function initialize() {
 			isVisibleStart = false;
 		}
 		isVisibleDest = false;
-		toggleBounce(markerStart);
+		toggleBounce(markerStart, markerDest);
 		map.setCenter(markerStart.getPosition());
 	});
 
@@ -152,16 +152,22 @@ function initialize() {
 			isVisibleDest = false;
 		}
 		isVisibleStart = false;
-		toggleBounce(markerDest);
+		toggleBounce(markerStart, markerDest);
 		map.setCenter(markerDest.getPosition());
 	});
 }
 
-function toggleBounce(marker) {
-	if (marker.getAnimation() != null) {
-		marker.setAnimation(null);
+function toggleBounce(markerStart, markerDest) {
+	if((markerStart.getAnimation != null) && (markerDest.getAnimation == null)){
+		markerStart.setAnimation(null);
+		markerDest.setAnimation(google.maps.Animation.BOUNCE);
+	} else if((markerStart.getAnimation == null) && (markerDest.getAnimation != null)){
+		markerStart.setAnimation(google.maps.Animation.BOUNCE);
+		markerDest.setAnimation(null);
 	} else {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
+		markerStart.setAnimation(null);
+		markerDest.setAnumation(null);
 	}
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
