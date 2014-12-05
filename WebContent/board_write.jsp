@@ -22,9 +22,8 @@
 <div class="bodyWrapper">
 	<div class="boardWrapper">
 		<!-- 스마트에디터 CSS, 자바스크립트 관련 자료 설정 -->
-		<link href="/Co-Traveler/se2/css/smart_editor2.css" rel="stylesheet" type="text/css" />
 		<form method="post" action="/Co-Traveler/board" name="f">
-			<table border="1" cellspacing="0" style="width:100%">
+			<table border="1" style="width:100%">
 				<tr>
 					<td>제목</td>
 					<td style="text-align:left !important"><input type="text" name="title" size=60/></td>

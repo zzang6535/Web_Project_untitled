@@ -26,7 +26,7 @@
 	   		</div>
 	   	</form>
 	   	<br/><br/><br/>	
-	   	<a href="user_edit.jsp">
+	   	<a href="/Co-Traveler/user?mode=view&id=${sessionScope.id}">
 	   		<input type="button" class="btn btn-default" value="정보수정"/>
 	   	</a>
 	</div>

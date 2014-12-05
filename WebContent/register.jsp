@@ -108,7 +108,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="email" onBlur="ValidateEmail(this.value)")>
+					<input name="email" size="30" type="email" onBlur="ValidateEmail(this.value)">
 					<p class="note"></p>
 				</dd>
 			</dl>

@@ -33,6 +33,66 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionUrl = "";
+		String mode = request.getParameter("mode");
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=utf-8");
+		User user = new User();
+		
+		if(mode.equals("withdrawal"))
+		{
+			String id = (String) session.getAttribute("id");
+			
+			ArrayList<String> errorMsgs = new ArrayList<String>();
+			try 
+			{
+				if(session.getAttribute("adm").equals("T"))
+				{
+					id = request.getParameter("id");
+					if (UserDAO.removeUser(id)) 
+					{
+						request.setAttribute("msg", id+" 탈퇴 완료");
+						actionUrl = "action/success.jsp";
+					}
+					else
+					{
+						errorMsgs.add("탈퇴 실패");
+						request.setAttribute("errorMsgs", errorMsgs);
+						actionUrl = "action/error.jsp";
+					}
+				}
+			} 
+			catch (NoSuchAlgorithmException | SQLException
+					| NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(mode.equals("view"))
+		{
+			String id = (String) session.getAttribute("id");
+			try 
+			{
+				if(session.getAttribute("adm").equals("T"))
+				{
+					id = request.getParameter("id");
+					user = UserDAO.getUser(id);
+				}
+				else
+				{
+					id = (String)session.getAttribute("id");
+					user = UserDAO.getUser(id);
+				}
+				request.setAttribute("user",user);
+				actionUrl = "user_edit.jsp";
+			}
+			catch (SQLException
+					| NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
 		
@@ -89,6 +149,9 @@ public class UserServlet extends HttpServlet {
 			
 			if(name != null) {
 			    name = new String(name.getBytes("8859_1"), "UTF-8");
+			}
+			if(start != null) {
+				start = new String(start.getBytes("8859_1"), "UTF-8");
 			}
 			
 			ArrayList<String> errorMsgs = new ArrayList<String>();
@@ -210,8 +273,8 @@ public class UserServlet extends HttpServlet {
 			{
 				if (UserDAO.removeUser(id, pw)) 
 				{
-					session.invalidate();
 					request.setAttribute("msg", id+" 탈퇴 완료");
+					session.invalidate();
 					actionUrl = "action/success.jsp";
 				}
 				else

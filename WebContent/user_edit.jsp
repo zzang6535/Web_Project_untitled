@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String pageMode = "userEdit";
 %>
@@ -56,8 +57,7 @@
 					<label>ID</label>
 				</dt>
 				<dd>
-					<%=session.getAttribute("id") %>
-					<input type="hidden" name="id" value="<%=session.getAttribute("id") %>"/>
+					${user.id}
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -75,7 +75,7 @@
 					<label>Name</label>
 				</dt>
 				<dd>
-					<input name="name" size="30" type="text" value="<%=session.getAttribute("name") %>">
+					<input name="name" size="30" type="text" value="${user.name}">
 					<p class="note"></p>
 				</dd>
 			</dl>			
@@ -85,9 +85,23 @@
 				</dt>
 				<dd>
 					남
-					<input name="gender" value="M" type="radio" <% if(session.getAttribute("gender").equals("M")) out.println("checked=true");%>>
+					<c:choose>
+						<c:when test="${user.gender == 'M'}">
+							<input name="gender" value="M" type="radio" checked=true>	
+						</c:when>
+						<c:otherwise>
+							<input name="gender" value="M" type="radio">
+						</c:otherwise>
+					</c:choose>
 					여
-					<input name="gender" value="F" type="radio" <% if(session.getAttribute("gender").equals("F")) out.println("checked=true");%>>
+					<c:choose>
+						<c:when test="${user.gender == 'F'}">
+							<input name="gender" value="F" type="radio" checked=true>	
+						</c:when>
+						<c:otherwise>
+							<input name="gender" value="F" type="radio">
+						</c:otherwise>
+					</c:choose>
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -96,7 +110,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="text" value="<%=session.getAttribute("email") %>">
+					<input name="email" size="30" type="text" value="${user.email}">
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -105,7 +119,7 @@
 					<label>Tel</label>
 				</dt>
 				<dd>
-					<input name="tel" size="30" type="text" value="<%=session.getAttribute("tel") %>">
+					<input name="tel" size="30" type="text" value="${user.tel}">
 					<p class="note"></p>
 				</dd>
 			</dl>				
@@ -114,7 +128,7 @@
 					<label>선호 출발지</label>
 				</dt>
 				<dd>
-					<input name="start" size="30" type="text" value="<%=session.getAttribute("start") %>">
+					<input name="start" size="30" type="text" value="${user.start}">
 					<p class="note"></p>
 				</dd>
 			</dl>	

@@ -168,6 +168,39 @@ public class BoardDAO {
 		}
 		return cnt;
 	}
+	
+	public static int boardListCnt() throws NamingException
+	{
+		int cnt=0;
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
+		
+		try 
+		{
+			conn =  ds.getConnection();
+			stmt = conn.prepareStatement(
+					"SELECT count(*) AS total FROM board "
+					);
+			rs = stmt.executeQuery();
+			
+		    while(rs.next())
+		    {                
+		    	cnt = rs.getInt("total");
+		    }
+		}
+		catch (SQLException e)
+		{					
+		} 
+		finally
+		{
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		return cnt;
+	}
 	public static boolean writeBoard(Board board) throws SQLException, NamingException, NoSuchAlgorithmException
 	{
 		int result = 0;
@@ -357,5 +390,71 @@ public class BoardDAO {
 		}
 		
 		return result;		
-	}        
+	}
+	
+	public static PageResult<Board> getPage(int page, int numItemsInPage) 
+			throws SQLException, NamingException 
+	{
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
+
+		if (page <= 0) 
+		{
+			page = 1;
+		}
+		PageResult<Board> result = new PageResult<Board>(numItemsInPage, page);
+		
+		int startPos = (page - 1) * numItemsInPage;
+
+    	try 
+    	{ 
+			result.setNumItems(boardListCnt());
+
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("SELECT * FROM board as b JOIN users as u ON u.id = b.u_id ORDER BY b.b_id DESC LIMIT " + startPos + ", " + numItemsInPage);
+			rs = stmt.executeQuery();	
+			
+			while(rs.next()) 
+			{
+				if(rs.getString("u.join_type").equals("site"))
+				{
+					result.getList().add(new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,rs.getString("b.u_id")
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
+		    			));
+				}
+				else
+				{
+					result.getList().add(new Board( rs.getInt("b.b_id")
+		    			,rs.getString("b.name")
+		    			,"<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>"
+		    			,rs.getString("b.title")
+		    			,rs.getString("b.content")
+		    			,rs.getString("b.wtime")
+		    			,rs.getInt("b.cnt")
+		    			,rs.getString("b.ofilename")
+		    			,rs.getString("b.sfilename")
+		    			));
+				}
+			}
+		}
+    	finally 
+		{
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		
+		return result;		
+	}     
 }

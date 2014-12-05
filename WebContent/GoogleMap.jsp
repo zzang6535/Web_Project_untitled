@@ -135,4 +135,5 @@
 					if(conn != null) try{conn.close();} catch(SQLException e){}
 			} %>
 		</div>
+		</div>
 <%@include file="_footer.jsp" %>
