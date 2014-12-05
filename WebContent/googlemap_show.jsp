@@ -5,15 +5,10 @@
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-	/*
+	
 	String dbUrl = "jdbc:mysql://54.68.109.68/project?characterEncoding=UTF-8";
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
-	*/
-	
-	String dbUrl = "jdbc:mysql://localhost:3306/test";
-	String dbUser = "root";
-	String dbPassword = "as613200";
 	
 	String address="";
 	double geoX=0.0;
@@ -67,16 +62,16 @@
 			var markers[];
 			var place = autocompleteStart.getPlace();
 			<%
-				stmt = conn.prepareStatement("SELECT * FROM trip WHERE address like ?");
+				stmt = conn.prepareStatement("SELECT start, spos_x, spos_y FROM trip WHERE address like ?");
 				String st = "%" +"%";
 				stmt.setString(1, st);
 				
 				rs = stmt.executeQuery();
 				
 				while(rs.next()){
-					address = rs.getString("address");
-					geoX = rs.getDouble("geox");
-					geoY = rs.getDouble("geoy");
+					address = rs.getString("start");
+					geoX = rs.getDouble("spos_x");
+					geoY = rs.getDouble("spos_y");
 			%>
 					markers.push(new google.maps.Marker({
 					map : map,
