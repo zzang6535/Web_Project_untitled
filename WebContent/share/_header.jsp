@@ -36,7 +36,7 @@
 							<li<%if(mode.equals("notice")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=notice">공지사항</a></li>
 							<li<%if(mode.equals("event")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=event">이벤트</a></li>
 							<li<%if(mode.equals("community")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=community">커뮤니티</a></li>
-							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/mypage.jsp">나의 여행 일지</a></li>
+							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/view/mypage.jsp">나의 여행 일지</a></li>
 							<% 
 								if(session.getAttribute("id") != null)
 								{
@@ -64,10 +64,10 @@
 								<button type="submit" class="btn btn-success">Sign in</button>
 							</div>
 							<div class="form-group">
-								<a href="register.jsp"><button type="button" class="btn btn-success">Sign up</button></a>
+								<a href="/Co-Traveler/user/user_register.jsp"><button type="button" class="btn btn-success">Sign up</button></a>
 							</div>
 							<div class="form-group">
-								<a href="facebook.jsp"><img src="/Co-Traveler/common/img/fb.png" alt="페이스북 가입 및 로그인" /></a>
+								<a href="/Co-Traveler/user/facebook.jsp"><img src="/Co-Traveler/common/img/fb.png" alt="페이스북 가입 및 로그인" /></a>
 							</div>							
 							<input type="hidden" name="mode" value="login" />
 						<%

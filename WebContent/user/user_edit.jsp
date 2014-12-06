@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
-	String pageMode = "register";
+	String pageMode = "userEdit";
 %>
-<%@include file="_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <script>
 	function formSubmit()
 	{
@@ -43,39 +44,26 @@
 			form.tel.focus();
 			return;
 		}
-		if(!ValidateEmail(form.email.value))
-		{
-			return;
-		}
 		form.submit(); 
-	}
-	function ValidateEmail(mail)   
-	{  
-		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))  
-		{  
-			return true;  
-		}  
-	    alert("정확한 이메일을 입력해주세요~^^")  
-	    return false;  
 	}
 </script>
 <div class="bodyWrapper">
 	<div id="registerBox">
 		<form name='registerForm' method="POST" action="/Co-Traveler/user">
-			<h2 class="setup-form-title">회원가입</h2>
+			<h2 class="setup-form-title">정보수정</h2>
 			<br />
 			<dl class="form">
 				<dt class="input-label">
 					<label>ID</label>
 				</dt>
 				<dd>
-					<input name="id" size="30" type="text">
+					${user.id}
 					<p class="note"></p>
 				</dd>
 			</dl>
 			<dl class="form">
 				<dt class="input-label">
-					<label>Password</label>
+					<label>New Password</label>
 				</dt>
 				<dd>
 					<input name="pw" size="30" type="password">
@@ -87,7 +75,7 @@
 					<label>Name</label>
 				</dt>
 				<dd>
-					<input name="name" size="30" type="text">
+					<input name="name" size="30" type="text" value="${user.name}">
 					<p class="note"></p>
 				</dd>
 			</dl>			
@@ -97,9 +85,23 @@
 				</dt>
 				<dd>
 					남
-					<input name="gender" value="M" type="radio">
+					<c:choose>
+						<c:when test="${user.gender == 'M'}">
+							<input name="gender" value="M" type="radio" checked=true>	
+						</c:when>
+						<c:otherwise>
+							<input name="gender" value="M" type="radio">
+						</c:otherwise>
+					</c:choose>
 					여
-					<input name="gender" value="F" type="radio">
+					<c:choose>
+						<c:when test="${user.gender == 'F'}">
+							<input name="gender" value="F" type="radio" checked=true>	
+						</c:when>
+						<c:otherwise>
+							<input name="gender" value="F" type="radio">
+						</c:otherwise>
+					</c:choose>
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -108,7 +110,7 @@
 					<label>Email</label>
 				</dt>
 				<dd>
-					<input name="email" size="30" type="email" onBlur="ValidateEmail(this.value)">
+					<input name="email" size="30" type="text" value="${user.email}">
 					<p class="note"></p>
 				</dd>
 			</dl>
@@ -117,25 +119,24 @@
 					<label>Tel</label>
 				</dt>
 				<dd>
-					<input name="tel" size="30" type="text">
+					<input name="tel" size="30" type="text" value="${user.tel}">
 					<p class="note"></p>
 				</dd>
-			</dl>
+			</dl>				
 			<dl class="form">
 				<dt class="input-label">
 					<label>선호 출발지</label>
 				</dt>
 				<dd>
-					<input name="start" size="30" type="text">
+					<input name="start" size="30" type="text" value="${user.start}">
 					<p class="note"></p>
 				</dd>
-			</dl>
+			</dl>	
 			<div class="btn">
-				<button type="button" OnClick="formSubmit()">가입</button>
+				<button type="button" OnClick="formSubmit()">수정</button>
 			</div>
-			<input type="hidden" name="mode" value="join" />
-			<input type="hidden" name="join_type" value="site" />
+			<input type="hidden" name="mode" value="edit" />
 		</form>
 	</div> <!-- /.setup-form-container -->
 </div>
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

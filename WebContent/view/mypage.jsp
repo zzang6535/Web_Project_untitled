@@ -2,7 +2,7 @@
 <%
 	String pageMode = "mypage";
 %>
-<%@include file="_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <script>
 	function checkForm()
 	{
@@ -32,4 +32,4 @@
 	</div>
 </div>
 <%} %>
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

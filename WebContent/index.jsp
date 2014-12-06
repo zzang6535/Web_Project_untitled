@@ -2,7 +2,7 @@
 <%
 	String pageMode = "index";
 %>
-<%@include file="_header.jsp" %>
+<%@include file="share/_header.jsp" %>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="common/js/bjqs-1.3.min.js"></script>
 <script type="text/javascript">
@@ -31,4 +31,4 @@
 		</div>
 	</div>
 </div>
-<%@include file="_footer.jsp" %>
+<%@include file="share/_footer.jsp" %>

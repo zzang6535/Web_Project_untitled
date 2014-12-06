@@ -31,7 +31,7 @@
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 	
 %>
-<%@include file="_header.jsp" %>
+<%@include file="share/_header.jsp" %>
 <script>
 	function checkForm()
 	{
@@ -165,4 +165,4 @@
 			} %>
 		</div>
 		</div>
-<%@include file="_footer.jsp" %>
+<%@include file="share/_footer.jsp" %>

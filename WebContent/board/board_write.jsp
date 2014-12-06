@@ -3,7 +3,7 @@
 	String pageMode = request.getParameter("pageMode");
 	String boardName = "";
 %>
-<%@ include file="_header.jsp" %>
+<%@ include file="../share/_header.jsp" %>
 <%
 	if(pageMode.equals("event") || pageMode.equals("notice"))
 	{
@@ -41,4 +41,4 @@
 		</form>
 	</div>
 </div>	
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

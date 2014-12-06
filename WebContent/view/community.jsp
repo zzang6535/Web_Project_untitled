@@ -3,4 +3,4 @@
 	String pageMode = "community";
 	String pageName = "커뮤니티";
 %>
-<%@ include file="_board_list.jsp" %>
+<%@ include file="../share/_board_list.jsp" %>

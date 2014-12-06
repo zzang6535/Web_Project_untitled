@@ -3,4 +3,4 @@
 	String pageMode = "event";
 	String pageName = "이벤트";
 %>
-<%@ include file="_board_list.jsp" %>
+<%@ include file="../share/_board_list.jsp" %>

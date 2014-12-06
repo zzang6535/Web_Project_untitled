@@ -3,7 +3,7 @@
 <%
 	String pageMode = request.getParameter("pageMode");
 %>
-<%@ include file="_header.jsp" %>
+<%@ include file="../share/_header.jsp" %>
 <script>
 	function rm(b_id)
 	{
@@ -34,4 +34,4 @@
 		</div>
 	</div>
 </div>	
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

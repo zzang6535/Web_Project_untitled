@@ -84,7 +84,7 @@ public class UserServlet extends HttpServlet {
 					user = UserDAO.getUser(id);
 				}
 				request.setAttribute("user",user);
-				actionUrl = "user_edit.jsp";
+				actionUrl = "user/user_edit.jsp";
 			}
 			catch (SQLException
 					| NamingException e) {

@@ -2,7 +2,7 @@
 <%
 	String pageMode = "facebook";
 %>
-<%@include file="_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <div class="bodyWrapper">
 		<div class="container">
 		<h1> Facebook Login Page </h1>
@@ -163,4 +163,4 @@ function addData(data,table){
 	$(table).find('#gender').attr("value", data.gender);	
 }
 </script>
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

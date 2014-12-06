@@ -4,7 +4,7 @@
 %>
 <%@ page import = "java.sql.*" %>   
 <%@ page import="java.util.*" %> 
-<%@include file="../_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <div class="bodyWrapper">
  		<div class="alert alert-success">
  			${msg}
@@ -13,4 +13,4 @@
 	 		<a href="/Co-Traveler/index.jsp" class="btn">메인으로</a>
 	 	</div>
 </div>
-<%@include file="../_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

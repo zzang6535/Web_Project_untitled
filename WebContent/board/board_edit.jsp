@@ -3,7 +3,7 @@
 	String pageMode = request.getParameter("pageMode");
 	String boardName = "";
 %>
-<%@ include file="_header.jsp" %>
+<%@ include file="../share/_header.jsp" %>
 <div class="bodyWrapper">
 	<div class="boardWrapper">
 		<!-- 스마트에디터 CSS, 자바스크립트 관련 자료 설정 -->
@@ -27,4 +27,4 @@
 		</form>
 	</div>
 </div>	
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

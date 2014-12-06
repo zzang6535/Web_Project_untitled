@@ -5,7 +5,7 @@
 <%
 	String pageMode = "admin";
 %>
-<%@include file="_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <script>
 	function boardRemove(b_id)
 	{
@@ -70,7 +70,7 @@
 				</tfoot>
 			</table>
 			<div class="btnBox">
-				<jsp:include page="page.jsp">
+				<jsp:include page="../share/_page.jsp">
 					<jsp:param name="currentPage" value="${users.page}"/>
 					<jsp:param name="addOption" value="bpage"/>
 					<jsp:param name="addValue" value="<%=request.getParameter(\"bpage\")%>"/>
@@ -114,7 +114,7 @@
 				</tfoot>
 			</table>
 			<div class="btnBox">
-				<jsp:include page="page.jsp">
+				<jsp:include page="../share/_page.jsp">
 					<jsp:param name="currentPage" value="${boards.page}"/>
 					<jsp:param name="addOption" value="upage"/>
 					<jsp:param name="addValue" value="<%=request.getParameter(\"upage\")%>"/>
@@ -128,4 +128,4 @@
 		</div>
 	</div>
 </div>	
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

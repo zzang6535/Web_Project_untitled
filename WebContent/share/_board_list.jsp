@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ page import = "java.sql.*" %>   
 <%@ page import="java.util.*" %> 
-<%@include file="_header.jsp" %>
+<%@include file="../share/_header.jsp" %>
 <div class="bodyWrapper">
 	<div class="boardWrapper">
 		<h2><%=pageName%></h2>
@@ -11,7 +11,7 @@
 			{
 		%>
 		<div class="menu">
-			<a href="/Co-Traveler/board_write.jsp?pageMode=<%=pageMode%>">
+			<a href="/Co-Traveler/board/board_write.jsp?pageMode=<%=pageMode%>">
 	   			<input type="button" class="btn btn-default" value="글쓰기">
 	   		</a>
 	   	</div>
@@ -44,7 +44,7 @@
 				</tfoot>
 			</table>
 		<div class="btnBox">
-			<jsp:include page="page.jsp">
+			<jsp:include page="../share/_page.jsp">
 				<jsp:param name="currentPage" value="${boards.page}"/>
 				<jsp:param name="url" value="board?mode=list&boardName=${boardName}"/>
 				<jsp:param name="startPage" value="${boards.startPageNo}"/>
@@ -55,4 +55,4 @@
 		</div>
 	</div>
 </div>	
-<%@include file="_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

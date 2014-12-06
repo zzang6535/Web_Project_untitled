@@ -66,7 +66,7 @@ public class BoardServlet extends HttpServlet {
 					request.setAttribute("boards", boards);
 					request.setAttribute("boardListCnt", BoardDAO.boardListCnt(boardName));
 					request.setAttribute("page", page);
-					actionUrl = boardName+".jsp";
+					actionUrl = "view/"+boardName+".jsp";
 			}
 			catch (SQLException | NamingException e) {
 				request.setAttribute("error", e.getMessage());
@@ -79,7 +79,7 @@ public class BoardServlet extends HttpServlet {
 			int b_id = Integer.parseInt(request.getParameter("b_id"));
 			try 
 			{
-				actionUrl = "board_view.jsp";
+				actionUrl = "board/board_view.jsp";
 				Board b = BoardDAO.boardView(b_id);
 				request.setAttribute("board", b);		
 			}
@@ -95,7 +95,7 @@ public class BoardServlet extends HttpServlet {
 			int b_id = Integer.parseInt(request.getParameter("b_id"));
 			try 
 			{
-				actionUrl = "board_edit.jsp";
+				actionUrl = "board/board_edit.jsp";
 				Board b = BoardDAO.boardView(b_id);
 				request.setAttribute("board", b);		
 			}
