@@ -17,7 +17,7 @@
 <body>
 	<div id="search_bar" class="controls">
     <input id="start_search" type="text"
-        placeholder="출발지">
+        placeholder="출발지">
     <input id="dest_search" type="text"
     		placeholder="도착지">
 	</div>

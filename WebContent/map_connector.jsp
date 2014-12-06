@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.sql.*"%>
+    pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"%>
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	//DB connection ready
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -10,9 +12,7 @@
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
 	
-	request.setCharacterEncoding("UTF-8");
-	
-	String rspPlace=request.getParameter("p1");
+	String rspPlace="";
 	String address="";
 	String geoX="";
 	String geoY="";
@@ -23,11 +23,12 @@
 		
 		//DB Connection
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
- 
-    if(rspPlace != null){
+ 		rspPlace = request.getParameter("p1");
+ 		
+    if(!rspPlace.equals("")){
     	stmt = conn.prepareStatement("SELECT start, spos_x, spos_y FROM trip WHERE start LIKE ?");
 			stmt.setString(1, "%" + rspPlace + "%");
-			
+		
 			rs = stmt.executeQuery();
 				
 				while(rs.next()){
@@ -36,6 +37,8 @@
 					geoY = rs.getString("spos_y");
 					out.println(address + "," + geoX + "," + geoY);
 				}
+    	} else{
+    		out.println("DB를 읽어오지 못했습니다");
     	}
 		} catch(SQLException e){
 					out.println("SQL error");
