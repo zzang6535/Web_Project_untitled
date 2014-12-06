@@ -35,7 +35,7 @@
 					address = rs.getString("start");
 					geoX = rs.getString("spos_x");
 					geoY = rs.getString("spos_y");
-					out.println(address + "," + geoX + "," + geoY);
+					out.println(geoX + "," + geoY + ",");
 				}
     	} else{
     		String userId = (String)session.getAttribute("id");

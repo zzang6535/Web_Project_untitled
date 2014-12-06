@@ -79,9 +79,12 @@
 					String userId = (String)session.getAttribute("id");
 					String userName = (String)session.getAttribute("name");
 					String startX = String.valueOf(request.getParameter("sp1"));
-
-					out.println("StartX = " + startX);
-					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x) VALUES(?, ?, ?, ?, ?, ?, ?)");
+					String startY = String.valueOf(request.getParameter("sp2"));
+					String destX = String.valueOf(request.getParameter("sp3"));
+					String destY = String.valueOf(request.getParameter("sp4"));
+					
+					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x, spos_y, dpos_x, dpos_y)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					
 					stmt.setString(1, userId);
 					stmt.setString(2, title);
 					stmt.setString(3, start);
@@ -89,6 +92,9 @@
 					stmt.setString(5, numTrip);
 					stmt.setString(6, content);
 					stmt.setString(7, startX);
+					stmt.setString(8, startY);
+					stmt.setString(9, destX);
+					stmt.setString(10, destY);
 					
 					result = stmt.executeUpdate();
 					if(result != 1){

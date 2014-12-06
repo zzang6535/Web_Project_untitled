@@ -76,7 +76,7 @@ function initialize() {
 											&& place.address_components[0].short_name || '') ]
 									.join(' ');
 						}
-
+						
 						infowindowStart.setContent('<div><strong>' + place.name
 								+ '</strong><br>' + address);
 						isVisibleStart = true;

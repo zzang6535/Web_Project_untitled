@@ -19,8 +19,10 @@
 	<div id="search_bar" class="controls">
     <input id="start_search" type="text"
         placeholder="출발지">
+    <input id="start_search_hid" type="hidden">
     <input id="dest_search" type="text"
     		placeholder="도착지">
+   	<input id="dest_search_hid" type="hidden">
 	</div>
     <div id="map"></div>
     
