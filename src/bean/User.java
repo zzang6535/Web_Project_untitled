@@ -3,7 +3,7 @@ package bean;
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 2193897931951333123L;
 
-	private int idx;
+	private int u_id;
 	private String id;
 	private String pw;
 	private String name;
@@ -17,10 +17,10 @@ public class User implements java.io.Serializable {
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
-	public User(int idx, String join_type, String id, String pw, String name, String email,
+	public User(int u_id, String join_type, String id, String pw, String name, String email,
 			String tel, String gender, String start) {
 		super();
-		this.idx = idx;
+		this.u_id = u_id;
 		this.join_type = join_type;
 		this.id = id;
 		this.pw = pw;
@@ -30,10 +30,10 @@ public class User implements java.io.Serializable {
 		this.gender = gender;
 		this.start = start;
 	}
-	public User(int idx, String join_type, String id, String pw, String name, String email,
+	public User(int u_id, String join_type, String id, String pw, String name, String email,
 			String tel, String gender, String start,  String adm) {
 		super();
-		this.idx = idx;
+		this.u_id = u_id;
 		this.join_type = join_type;
 		this.id = id;
 		this.pw = pw;
@@ -44,11 +44,11 @@ public class User implements java.io.Serializable {
 		this.start = start;
 		this.adm = adm;
 	}
-	public int getIdx() {
-		return idx;
+	public int getU_id() {
+		return u_id;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setU_id(int u_id) {
+		this.u_id = u_id;
 	}
 	public String getId() {
 		return id;

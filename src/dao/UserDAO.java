@@ -79,7 +79,7 @@ public class UserDAO {
 			
 			while(rs.next()) 
 			{
-				user = new User(rs.getInt("idx")
+				user = new User(rs.getInt("u_id")
 						,rs.getString("join_type")
 						,rs.getString("id")
 						,rs.getString("pw")
@@ -192,8 +192,8 @@ public class UserDAO {
 				conn = ds.getConnection();
 	
 				// 질의 준비
-				stmt = conn.prepareStatement("DELETE FROM users WHERE idx=?");
-				stmt.setInt(1, u.getIdx());
+				stmt = conn.prepareStatement("DELETE FROM users WHERE u_id=?");
+				stmt.setInt(1, u.getU_id());
 				
 				// 수행
 				result = stmt.executeUpdate();
@@ -257,7 +257,7 @@ public class UserDAO {
 		    
 			while(rs.next())
 		    {                  
-				user = new User(rs.getInt("idx")
+				user = new User(rs.getInt("u_id")
 						,rs.getString("join_type")
 						,rs.getString("id")
 						,rs.getString("pw")
@@ -340,7 +340,7 @@ public class UserDAO {
 			
 			while(rs.next()) 
 			{
-				result.getList().add(new User(rs.getInt("idx")
+				result.getList().add(new User(rs.getInt("u_id")
 						,rs.getString("join_type")
 						,rs.getString("id")
 						,rs.getString("pw")

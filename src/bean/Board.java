@@ -11,8 +11,6 @@ public class Board implements java.io.Serializable {
 	private String content;
 	private String wtime;
 	private int cnt;
-	private String ofilename;
-	private String sfilename;
 	private String writer;
 	
 	public Board(){}
@@ -22,8 +20,6 @@ public class Board implements java.io.Serializable {
 		this.name = name;
 		this.title = title;
 		this.content = content;
-		this.ofilename = "";
-		this.sfilename = "";
 	}
 	public Board(int b_id, String u_id, String name, String title, String content )
 	{
@@ -32,11 +28,9 @@ public class Board implements java.io.Serializable {
 		this.name = name;
 		this.title = title;
 		this.content = content;
-		this.ofilename = "";
-		this.sfilename = "";
 	}
 	public Board( int b_id, String name, String u_id, String title,
-			String content, String wtime, int cnt, String ofilename, String sfilename)
+			String content, String wtime, int cnt)
 			{
 				this.b_id = b_id;
 				this.name = name;
@@ -45,8 +39,6 @@ public class Board implements java.io.Serializable {
 				this.content = content;
 				this.wtime = wtime;
 				this.cnt = cnt;
-				this.ofilename = ofilename;
-				this.sfilename = sfilename;
 			}
 	
 	public int getB_id() {
@@ -90,18 +82,6 @@ public class Board implements java.io.Serializable {
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
-	}
-	public String getOfilename() {
-		return ofilename;
-	}
-	public void setOfilename(String ofilename) {
-		this.ofilename = ofilename;
-	}
-	public String getSfilename() {
-		return sfilename;
-	}
-	public void setSfilename(String sfilename) {
-		this.sfilename = sfilename;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

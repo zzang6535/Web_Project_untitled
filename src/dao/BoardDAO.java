@@ -82,8 +82,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			);
 		    		board.setWriter(rs.getString("u.id"));
 		    	}
@@ -96,8 +95,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			);
 		    		board.setWriter("<a href = 'https://www.facebook.com/app_scoped_user_id/"+rs.getString("b.u_id")+"'>"+rs.getString("u.name")+"</a>");
 		    	}
@@ -215,16 +213,14 @@ public class BoardDAO {
 				    
 			stmt = conn.prepareStatement(
 					"INSERT INTO board " +
-							"(name, title, content, u_id, ofilename, sfilename, wtime, cnt) " +
+							"(name, title, content, u_id, wtime, cnt) " +
 							"VALUES " +
-							"(?, ?, ?, ?, ?, ?, NOW(), 0)" 
+							"(?, ?, ?, ?, NOW(), 0)" 
 					);
 			stmt.setString(1,  board.getName());
 			stmt.setString(2,  board.getTitle());
 			stmt.setString(3,  board.getContent());
 			stmt.setString(4,  board.getU_id());
-			stmt.setString(5,  board.getOfilename());
-			stmt.setString(6,  board.getSfilename());
 			
 			result = stmt.executeUpdate();
 		}
@@ -363,8 +359,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			));
 				}
 				else
@@ -376,8 +371,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			));
 				}
 			}
@@ -429,8 +423,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			));
 				}
 				else
@@ -442,8 +435,7 @@ public class BoardDAO {
 		    			,rs.getString("b.content")
 		    			,rs.getString("b.wtime")
 		    			,rs.getInt("b.cnt")
-		    			,rs.getString("b.ofilename")
-		    			,rs.getString("b.sfilename")
+
 		    			));
 				}
 			}
