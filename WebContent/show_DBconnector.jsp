@@ -38,7 +38,16 @@
 					out.println(address + "," + geoX + "," + geoY);
 				}
     	} else{
-    		out.println("DB를 읽어오지 못했습니다");
+    		String userId = (String)session.getAttribute("id");
+			String userName = (String)session.getAttribute("name");
+			String userLink = userId;
+			if(session.getAttribute("join_type") != null)
+			{
+				if(session.getAttribute("join_type").equals("facebook"))
+				{
+					userLink = "<a href = 'https://www.facebook.com/app_scoped_user_id/"+userId+"'>"+userName+"</a>";
+				}
+    	}
     	}
 		} catch(SQLException e){
 					out.println("SQL error");

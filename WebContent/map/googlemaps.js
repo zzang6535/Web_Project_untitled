@@ -1,4 +1,5 @@
 var map;
+var markerStart, markerDest;
 
 function initialize() {
 	var myLating = new google.maps.LatLng(37.555775, 126.972472);
@@ -30,11 +31,11 @@ function initialize() {
 	var isVisibleStart = false;
 	var isVisibleDest = false;
 
-	var markerStart = new google.maps.Marker({
+	markerStart = new google.maps.Marker({
 		map : map,
 		anchorPoint : new google.maps.Point(0, -29)
 	});
-	var markerDest = new google.maps.Marker({
+	markerDest = new google.maps.Marker({
 		map : map,
 		anchorPoint : new google.maps.Point(0, -29)
 	});
@@ -63,14 +64,6 @@ function initialize() {
 						markerStart.setPosition(place.geometry.location);
 						markerStart.setVisible(true);
 						toggleBounce(markerStart, markerDest);
-						
-						var startX = "sp1=" + markerStart.getPosition().lat();
-						
-						sendRequest("GoogleMap.jsp", startX, function(){
-							if(xhr.readyState == 4 && xhr.status == 200){
-								alert(xhr.responseText);
-							}
-						}, "post", true);
 						
 						var address = '';
 						if (place.address_components) {
@@ -176,5 +169,35 @@ function toggleBounce(markerStart, markerDest) {
 		markerDest.setAnimation(null);
 	}
 }
+function sendLocation(type){
+	var startX = markerStart.getPosition().lat();
+	var startY = markerStart.getPosition().lng();
+	var endX = markerDest.getPosition().lat();
+	var endY = markerDest.getPosition().lng();
+	
+	if(type == "sX")
+		return startX;
+	else if(type == "sY")
+		return startY;
+	else if(type == "eX")
+		return endX;
+	else if(type == "eY")
+		return endY;
+	/*sendRequest("GoogleMap.jsp", startX, function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			alert(xhr.responseText);
+		}
+	}, "post", true);*/
+}
+
+/*function sendLocation(){
+	var startX = "sp1=" + markerStart.getPosition().lat();
+	
+	sendRequest("GoogleMap.jsp", startX, function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			alert(xhr.responseText);
+		}
+	}, "post", true);
+}*/
 
 google.maps.event.addDomListener(window, 'load', initialize);

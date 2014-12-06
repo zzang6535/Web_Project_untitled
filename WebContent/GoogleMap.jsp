@@ -50,6 +50,21 @@
 <script type="text/javascript" src="./map/googlemaps.js"></script>
 <script type="text/javascript" src="./map/httpRequest.js"></script>
 <script src="./map/jquery-2.1.1.min.js"></script>
+<script>
+	//submit 메소드
+	function formSubmit()
+	{
+		var sp1 = document.getElementById('sp1');
+		var sp2 = document.getElementById('sp2');
+		var sp3 = document.getElementById('sp3');
+		var sp4 = document.getElementById('sp4');
+		sp1.value = sendLocation('sX');
+		sp2.value = sendLocation('sY');
+		sp3.value = sendLocation('eX');
+		sp4.value = sendLocation('eY');
+		document.tripForm.submit();
+	}
+</script>
 	<div id="wrap">
 		<div id="map"></div>
 		<div id="enroll">
@@ -64,9 +79,9 @@
 					String userId = (String)session.getAttribute("id");
 					String userName = (String)session.getAttribute("name");
 					String startX = String.valueOf(request.getParameter("sp1"));
-					
-					out.println(startX);
-					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x) VALUES(?, ?, ?, ?, ?, ?)");
+
+					out.println("StartX = " + startX);
+					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x) VALUES(?, ?, ?, ?, ?, ?, ?)");
 					stmt.setString(1, userId);
 					stmt.setString(2, title);
 					stmt.setString(3, start);
@@ -91,7 +106,7 @@
 						}
 					}
 					%>
-			<form class="form-trip" method="post">
+			<form name="tripForm" class="form-trip" method="post">
 				<table>
 					<tr>
 						<th>주최</th>
@@ -125,10 +140,14 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<th><textarea rows="10" cols="15" name="content"></textarea></th>
+						<th><textarea rows="10" cols="15" name="content" ></textarea></th>
 					</tr>
 				</table>
-				<input type="submit" value="여행 등록">
+				<input type="hidden" id="sp1" name="sp1" value=""/>
+				<input type="hidden" id="sp2" name="sp2" value=""/>
+				<input type="hidden" id="sp3" name="sp3" value=""/>
+				<input type="hidden" id="sp4" name="sp4" value=""/>
+				<input type="button" onClick="formSubmit()" value="여행 등록">
 			</form>
 			<% }
 			} catch(SQLException e){
