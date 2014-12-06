@@ -31,7 +31,8 @@
     -->
 
               <Resource name="jdbc/WebDB" auth="Container" type="javax.sql.DataSource"
-               maxActive="10000" maxIdle="300" maxWait="10000"
+               maxActive="100" maxIdle="50" minIdle="10" suspectTimeout="60" 
+               timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
                username="seunggabi" password="co-traveler" driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://54.68.109.68:3306/project?useEncoding=true&amp;characterEncoding=UTF-8" />
 </Context>
