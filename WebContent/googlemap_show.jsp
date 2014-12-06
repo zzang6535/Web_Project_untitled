@@ -13,6 +13,7 @@
 	<link type="text/css" rel="stylesheet" href="./map/googlemap_show.css">
 	<script src="./map/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="./map/googlemap_show.js"></script>
+	<script type="text/javascript" src="./map/httpRequest.js"></script>
 </head>
 <body>
 	<div id="search_bar" class="controls">

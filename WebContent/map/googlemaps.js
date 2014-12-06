@@ -64,6 +64,14 @@ function initialize() {
 						markerStart.setVisible(true);
 						toggleBounce(markerStart, markerDest);
 						
+						var startX = "sp1=" + markerStart.getPosition().lat();
+						
+						sendRequest("GoogleMap.jsp", startX, function(){
+							if(xhr.readyState == 4 && xhr.status == 200){
+								alert(xhr.responseText);
+							}
+						}, "post", true);
+						
 						var address = '';
 						if (place.address_components) {
 							address = [
@@ -165,7 +173,7 @@ function toggleBounce(markerStart, markerDest) {
 		markerDest.setAnimation(null);
 	} else {
 		markerStart.setAnimation(null);
-		markerDest.setAnumation(null);
+		markerDest.setAnimation(null);
 	}
 }
 

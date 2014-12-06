@@ -48,6 +48,7 @@
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script type="text/javascript" src="./map/googlemaps.js"></script>
+<script type="text/javascript" src="./map/httpRequest.js"></script>
 <script src="./map/jquery-2.1.1.min.js"></script>
 	<div id="wrap">
 		<div id="map"></div>
@@ -62,15 +63,18 @@
 					String content = request.getParameter("content");
 					String userId = (String)session.getAttribute("id");
 					String userName = (String)session.getAttribute("name");
+					String startX = String.valueOf(request.getParameter("sp1"));
 					
-					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content) VALUES(?, ?, ?, ?, ?, ?)");
+					out.println(startX);
+					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x) VALUES(?, ?, ?, ?, ?, ?)");
 					stmt.setString(1, userId);
 					stmt.setString(2, title);
 					stmt.setString(3, start);
 					stmt.setString(4, dest);
 					stmt.setString(5, numTrip);
 					stmt.setString(6, content);
-
+					stmt.setString(7, startX);
+					
 					result = stmt.executeUpdate();
 					if(result != 1){
 						out.println("실패");
@@ -124,7 +128,7 @@
 						<th><textarea rows="10" cols="15" name="content"></textarea></th>
 					</tr>
 				</table>
-				<input type="submit" value="Geocode">
+				<input type="submit" value="여행 등록">
 			</form>
 			<% }
 			} catch(SQLException e){
