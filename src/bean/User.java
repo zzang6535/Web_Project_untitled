@@ -17,6 +17,10 @@ public class User implements java.io.Serializable {
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
+	public User(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 	public User(int u_id, String join_type, String id, String pw, String name, String email,
 			String tel, String gender, String start) {
 		super();

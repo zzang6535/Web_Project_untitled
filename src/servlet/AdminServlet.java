@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.BoardDAO;
+import dao.TripDAO;
 import dao.UserDAO;
 import bean.Board;
 import bean.PageResult;
+import bean.Trip;
 import bean.User;
 
 /**
@@ -70,7 +72,13 @@ public class AdminServlet extends HttpServlet {
 					request.setAttribute("boards", boards);
 					request.setAttribute("boardListCnt", BoardDAO.boardListCnt());
 					request.setAttribute("bpage", boardPage);
-					actionUrl = "admin.jsp";
+					
+					int tripPage = getIntFromParameter(request.getParameter("tpage"), 1);
+					PageResult<Trip> trips = TripDAO.getPage(tripPage, 10);
+					request.setAttribute("trips", trips);
+					request.setAttribute("tripListCnt", TripDAO.tripListCnt());
+					request.setAttribute("tpage", tripPage);
+					actionUrl = "view/admin.jsp";
 			}
 			catch (SQLException | NamingException e) {
 				request.setAttribute("error", e.getMessage());
