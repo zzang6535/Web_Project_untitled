@@ -125,4 +125,68 @@ public class TripDAO {
 		
 		return result;		
 	}        
+	public static PageResult<Trip> getUserPage(int page, int numItemsInPage, String id) 
+			throws SQLException, NamingException 
+	{
+		User user = new User();
+		String u_id = "";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
+
+		if (page <= 0) 
+		{
+			page = 1;
+		}
+		PageResult<Trip> result = new PageResult<Trip>(numItemsInPage, page);
+		
+		int startPos = (page - 1) * numItemsInPage;
+
+    	try 
+    	{ 
+			result.setNumItems(tripListCnt());
+
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("SELECT * FROM trip AS t JOIN users AS u ON t.u_id = u.id WHERE u.id = ? ORDER BY t.t_id DESC LIMIT " + startPos + ", " + numItemsInPage);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();	
+			
+			while(rs.next()) 
+			{
+				if(rs.getString("u.join_type").equals("facebook"))
+				{
+					user = new User(rs.getString("u.id"), rs.getString("u.name"));
+					u_id = user.facebookUserName();
+				}
+				else
+				{
+					u_id = rs.getString("u.u_id");
+				}
+				result.getList().add(new Trip(rs.getInt("t.t_id")
+						,u_id
+						,rs.getString("t.title")
+						,rs.getString("t.start")
+						,rs.getString("t.dest")
+						,rs.getInt("t.tripnum")
+						,rs.getString("t.content")
+						,rs.getString("t.wdate")
+						,rs.getString("t.sdate")
+						,rs.getString("t.edate")
+						,rs.getString("t.spos_x")
+						,rs.getString("t.spos_y")
+						,rs.getString("t.dpos_x")
+						,rs.getString("t.dpos_y")));
+			}
+		}
+    	finally 
+		{
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		
+		return result;		
+	}        
 }

@@ -36,7 +36,7 @@
 							<li<%if(mode.equals("notice")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=notice">공지사항</a></li>
 							<li<%if(mode.equals("event")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=event">이벤트</a></li>
 							<li<%if(mode.equals("community")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=community">커뮤니티</a></li>
-							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/view/mypage.jsp">나의 여행 일지</a></li>
+							<li<%if(mode.equals("mypage")){%> class="active"<%}%>><a href="/Co-Traveler/user?mode=my">나의 여행 일지</a></li>
 							<% 
 								if(session.getAttribute("id") != null)
 								{

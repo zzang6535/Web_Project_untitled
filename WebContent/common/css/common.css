@@ -357,3 +357,7 @@ p.bjqs-caption{display:block;width:96%;margin:0;padding:2%;position:absolute;bot
 .center{ text-align:center; }
 .bold{font-weight:bold;}
 .red{color:red !important;}
+#myTrip
+{
+	margin-top:100px;
+}

@@ -27,7 +27,16 @@ public class UserServlet extends HttpServlet {
         super();
     }
 
-
+	private int getIntFromParameter(String str, int defaultValue) {
+		int id;
+		
+		try {
+			id = Integer.parseInt(str);
+		} catch (Exception e) {
+			id = defaultValue;
+		}
+		return id;
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -90,6 +99,24 @@ public class UserServlet extends HttpServlet {
 					| NamingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+		
+		else if(mode.equals("my"))
+		{
+			try 
+			{
+					int tripPage = getIntFromParameter(request.getParameter("tpage"), 1);
+					PageResult<Trip> trips = TripDAO.getUserPage(tripPage, 10, (String)session.getAttribute("id"));
+					request.setAttribute("trips", trips);
+					request.setAttribute("tripListCnt", TripDAO.tripListCnt());
+					request.setAttribute("tpage", tripPage);
+					actionUrl = "view/mypage.jsp";
+			}
+			catch (SQLException | NamingException e) {
+				request.setAttribute("error", e.getMessage());
+				e.printStackTrace();
+				actionUrl = "action/error.jsp";
 			}
 		}
 		
