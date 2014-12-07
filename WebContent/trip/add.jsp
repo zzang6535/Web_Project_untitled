@@ -88,7 +88,6 @@
 					String sDate = sYear + sMonth + sDay;
 					String eDate = eYear + eMonth + eDay;
 					
-					out.println("<script>alert(" + sDate + ")</script>");
 					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y, dpos_x, dpos_y)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					
 					stmt.setString(1, userId);

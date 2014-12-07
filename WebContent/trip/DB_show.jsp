@@ -8,13 +8,15 @@
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	
+	int result = 0;
+	
 	String dbUrl = "jdbc:mysql://54.68.109.68/project?characterEncoding=UTF-8";
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
 	
 	String startPlace = "";
 	String destPlace = "";
-	String t_id = "";
+	String t_id="";
 	String title = "";
 	String start = "";
 	String dest = "";
@@ -24,7 +26,10 @@
 	String edate = "";
 	String geoX="";
 	String geoY="";
-	
+	String tId="";
+	String uId="";
+	int maxNum = 0;
+	int tNum = 0;
 	
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -33,16 +38,47 @@
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
  		startPlace = request.getParameter("p1");
  		destPlace = request.getParameter("p2");
- 		String infoReq = request.getParameter("info-form");
  		
- 		if(infoReq != null){
- 				String tripId="";
- 				String userId=(String)session.getAttribute("u_id");
- 				
- 				
- 		}
- 		
-    if(startPlace != null){
+ 		if(request.getMethod() == "POST"){
+			tId = request.getParameter("t_id");
+			uId = (String)session.getAttribute("id");
+			
+			stmt = conn.prepareStatement("SELECT tripnum FROM trip WHERE t_id=?");
+			stmt.setString(1, tId);
+			rs = stmt.executeQuery();
+			if(rs.next()){	maxNum = rs.getInt(1);	}
+			
+			stmt = conn.prepareStatement("SELECT count(*) FROM trip_partner WHERE t_id=?");
+			stmt.setString(1, tId);
+			rs = stmt.executeQuery();
+			if(rs.next()){	tNum = rs.getInt(1) + 1;	}
+			
+			if(maxNum <= tNum){
+				%>
+					<script type="text/javascript">
+						alert("여행 정원 초과입니다");
+						location.href="./show.jsp";
+					</script><br />
+				<% 
+			} else{
+				stmt = conn.prepareStatement("INSERT INTO trip_partner(t_id, u_id) VALUES(?, ?)");
+				stmt.setString(1, tId);
+				stmt.setString(2, uId);
+			
+				result = stmt.executeUpdate();
+				if(result != 1){
+					out.println("실패");
+				} else{
+				%>
+					<script type="text/javascript">
+						alert("여행 참가가 완료되었습니다!");
+  					location.href="../show.jsp";
+					</script><br />
+				<% 
+				}
+			}
+	}
+    if(!(startPlace == null)){
     	destPlace="";
     	stmt = conn.prepareStatement("SELECT t_id, title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y FROM trip WHERE start LIKE ?");
 			stmt.setString(1, "%" + startPlace + "%");
@@ -61,12 +97,12 @@
 					geoX = rs.getString("spos_x");
 					geoY = rs.getString("spos_y");
 					
-					out.print(t_id + "," + title + "," + start + "," + dest + "," + 
-						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + ",");
+					out.print(title + "," + start + "," + dest + "," + 
+						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + "," + t_id + ",");
 				}
-    } else if(!destPlace.equals("")){
+    } else if(destPlace != null){
     	startPlace="";
-    	stmt = conn.prepareStatement("SELECT title, start, dest, tripnum, content, sdate, edate, dpos_x, dpos_y FROM trip WHERE dest LIKE ?");
+    	stmt = conn.prepareStatement("SELECT t_id, title, start, dest, tripnum, content, sdate, edate, dpos_x, dpos_y FROM trip WHERE dest LIKE ?");
 			stmt.setString(1, "%" + destPlace + "%");
 	
 			rs = stmt.executeQuery();
@@ -83,7 +119,7 @@
 				geoX = rs.getString("dpos_x");
 				geoY = rs.getString("dpos_y");
 				out.println(title + "," + start + "," + dest + "," + 
-						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + ",");
+						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + "," + t_id + ",");
 			}
     }	else{ 
     	String userId = (String)session.getAttribute("id");
