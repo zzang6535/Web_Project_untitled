@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"%>
+	pageEncoding="UTF-8" import="java.sql.*" import="java.util.*"
+	import="java.text.*"%>
 <%
 	if(session.getAttribute("id") == null)
 	{
@@ -67,14 +68,28 @@
 					String dest = request.getParameter("trip_dest");
 					String numTrip = request.getParameter("num_member");
 					String content = request.getParameter("content");
+					String sYear = request.getParameter("syear");
+					String sMonth = Integer.parseInt(request.getParameter("smonth")) > 10? 
+							request.getParameter("smonth") : "0"+request.getParameter("smonth");
+					String sDay = Integer.parseInt(request.getParameter("sday")) > 10? 
+							request.getParameter("sday") : "0"+request.getParameter("sday");
+					String eYear = request.getParameter("eyear");
+					String eMonth = Integer.parseInt(request.getParameter("emonth")) > 10? 
+							request.getParameter("emonth") : "0"+request.getParameter("emonth");
+					String eDay = Integer.parseInt(request.getParameter("eday")) > 10? 
+							request.getParameter("eday") : "0"+request.getParameter("eday");
 					String userId = (String)session.getAttribute("id");
 					String userName = (String)session.getAttribute("name");
 					String startX = String.valueOf(request.getParameter("sp1"));
 					String startY = String.valueOf(request.getParameter("sp2"));
 					String destX = String.valueOf(request.getParameter("sp3"));
 					String destY = String.valueOf(request.getParameter("sp4"));
+					//SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
+					String sDate = sYear + sMonth + sDay;
+					String eDate = eYear + eMonth + eDay;
 					
-					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, spos_x, spos_y, dpos_x, dpos_y)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					out.println("<script>alert(" + sDate + ")</script>");
+					stmt = conn.prepareStatement("INSERT INTO trip(u_id, title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y, dpos_x, dpos_y)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					
 					stmt.setString(1, userId);
 					stmt.setString(2, title);
@@ -82,10 +97,12 @@
 					stmt.setString(4, dest);
 					stmt.setString(5, numTrip);
 					stmt.setString(6, content);
-					stmt.setString(7, startX);
-					stmt.setString(8, startY);
-					stmt.setString(9, destX);
-					stmt.setString(10, destY);
+					stmt.setString(7, sDate);
+					stmt.setString(8, eDate);
+					stmt.setString(9, startX);
+					stmt.setString(10, startY);
+					stmt.setString(11, destX);
+					stmt.setString(12, destY);
 					
 					result = stmt.executeUpdate();
 					if(result != 1){
@@ -120,6 +137,22 @@
 					<tr>
 						<th>도착지</th>
 						<td><input type="text" name="trip_dest" id="tdest"></td>
+					</tr>
+					<tr>
+						<th>출발일</th>
+						<td>
+							<input type="text" class="year" name="syear" id="syear" >
+							<input type="text" class="date" name="smonth" id="smonth" onChange="isValidMonth(this)">
+							<input type="text" class="date" name="sday" id="sday" onChange="isValidDay(syear, smonth, this)">
+						</td>
+					</tr>
+					<tr>
+						<th>종료일</th>
+						<td>
+							<input type="text" class="year" name="eyear" id="eyear">
+							<input type="text" class="date" name="emonth" id="emonth" onChange="isValidMonth(this)">
+							<input type="text" class="date" name="eday" id="eday" onChange="isValidDay(eyear, emonth, this)">
+						</td>
 					</tr>
 					<tr>
 						<th>모집인원</th>
@@ -157,3 +190,27 @@
 		</div>
 		</div>
 <%@include file="../share/_footer.jsp" %>
+<script type="text/javascript">
+/*
+* 유효한(존재하는) 월(月)인지 체크
+*/
+function isValidMonth(mm) {
+   var m = parseInt(mm,10);
+   return (m >= 1 && m <= 12);
+}
+
+/**
+ * 유효한(존재하는) 일(日)인지 체크
+ */
+function isValidDay(yyyy, mm, dd) {
+    var m = parseInt(mm,10) - 1;
+    var d = parseInt(dd,10);
+ 
+    var end = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+    if ((yyyy % 4 == 0 && yyyy % 100 != 0) || yyyy % 400 == 0) {
+        end[1] = 29;
+    }
+ 
+    return (d >= 1 && d <= end[m]);
+}
+</script>

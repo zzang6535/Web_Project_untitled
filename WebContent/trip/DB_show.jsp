@@ -14,6 +14,7 @@
 	
 	String startPlace = "";
 	String destPlace = "";
+	String t_id = "";
 	String title = "";
 	String start = "";
 	String dest = "";
@@ -32,15 +33,24 @@
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
  		startPlace = request.getParameter("p1");
  		destPlace = request.getParameter("p2");
+ 		String infoReq = request.getParameter("info-form");
  		
-    if(!(startPlace == null)){
+ 		if(infoReq != null){
+ 				String tripId="";
+ 				String userId=(String)session.getAttribute("u_id");
+ 				
+ 				
+ 		}
+ 		
+    if(startPlace != null){
     	destPlace="";
-    	stmt = conn.prepareStatement("SELECT title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y FROM trip WHERE start LIKE ?");
+    	stmt = conn.prepareStatement("SELECT t_id, title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y FROM trip WHERE start LIKE ?");
 			stmt.setString(1, "%" + startPlace + "%");
 		
 			rs = stmt.executeQuery();
 				
 				while(rs.next()){
+					t_id = rs.getString("t_id");
 					title = rs.getString("title");
 					start = rs.getString("start");
 					dest = rs.getString("dest");
@@ -51,7 +61,7 @@
 					geoX = rs.getString("spos_x");
 					geoY = rs.getString("spos_y");
 					
-					out.print(title + "," + start + "," + dest + "," + 
+					out.print(t_id + "," + title + "," + start + "," + dest + "," + 
 						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + ",");
 				}
     } else if(!destPlace.equals("")){
@@ -62,6 +72,7 @@
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
+				t_id = rs.getString("t_id");
 				title = rs.getString("title");
 				start = rs.getString("start");
 				dest = rs.getString("dest");
