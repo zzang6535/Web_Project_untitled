@@ -63,7 +63,6 @@ function initialize() {
 
 						markerStart.setPosition(place.geometry.location);
 						markerStart.setVisible(true);
-						toggleBounce(markerStart, markerDest);
 						
 						var address = '';
 						if (place.address_components) {
@@ -107,7 +106,6 @@ function initialize() {
 
 						markerDest.setPosition(place.geometry.location);
 						markerDest.setVisible(true);
-						toggleBounce(markerStart, markerDest);
 						
 						var address = '';
 						if (place.address_components) {
@@ -138,7 +136,6 @@ function initialize() {
 			isVisibleStart = false;
 		}
 		isVisibleDest = false;
-		toggleBounce(markerStart, markerDest);
 		map.setCenter(markerStart.getPosition());
 	});
 
@@ -152,23 +149,10 @@ function initialize() {
 			isVisibleDest = false;
 		}
 		isVisibleStart = false;
-		toggleBounce(markerStart, markerDest);
 		map.setCenter(markerDest.getPosition());
 	});
 }
 
-function toggleBounce(markerStart, markerDest) {
-	if((markerStart.getAnimation != null) && (markerDest.getAnimation == null)){
-		markerStart.setAnimation(null);
-		markerDest.setAnimation(google.maps.Animation.BOUNCE);
-	} else if((markerStart.getAnimation == null) && (markerDest.getAnimation != null)){
-		markerStart.setAnimation(google.maps.Animation.BOUNCE);
-		markerDest.setAnimation(null);
-	} else {
-		markerStart.setAnimation(null);
-		markerDest.setAnimation(null);
-	}
-}
 function sendLocation(type){
 	var startX = markerStart.getPosition().lat();
 	var startY = markerStart.getPosition().lng();
@@ -183,21 +167,7 @@ function sendLocation(type){
 		return endX;
 	else if(type == "eY")
 		return endY;
-	/*sendRequest("GoogleMap.jsp", startX, function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			alert(xhr.responseText);
-		}
-	}, "post", true);*/
 }
 
-/*function sendLocation(){
-	var startX = "sp1=" + markerStart.getPosition().lat();
-	
-	sendRequest("GoogleMap.jsp", startX, function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			alert(xhr.responseText);
-		}
-	}, "post", true);
-}*/
 
 google.maps.event.addDomListener(window, 'load', initialize);

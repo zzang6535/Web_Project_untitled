@@ -74,6 +74,18 @@ function initialize() {
 					for(var i=0; i < Location.length/2; i++){
 						var latLng = new google.maps.LatLng
 							(Location[(i*10)+7], Location[(i*10)+8]);
+						var infoWindow = new google.maps.InfoWindow();
+						infoWindow.setContent('<form action="DB_show.jsp" method="post">' +
+								'<div><input type="hidden" id="t_id" name="t_id" value="' + Location[(i*10)+9] +'"/></div> ' + 
+								'<div><strong>' + Location[i*10] + '</strong><br><br>' + 
+								'<div>출발지 : ' + Location[(i*10)+1] + '</div><br>' + 
+								'<div>목적지 : ' + Location[(i*10)+2] + '</div><br>' + 
+								'<div>모집인원 : ' + Location[(i*10)+3] + '</div><br>' +
+								'<div>출발일 : ' + Location[(i*10)+5] + '</div><br>' +
+								'<div>도착일 : ' + Location[(i*10)+6] + '</div><br><br>' +
+								'<div>' + Location[(i*10)+4] + '<div><br>' +
+								'<input type="submit" value="여행 참가하기">' +
+								'</form>');
 						addMarker(latLng);
 					}
 					map.setCenter(new google.maps.LatLng(Location[7], Location[8]));

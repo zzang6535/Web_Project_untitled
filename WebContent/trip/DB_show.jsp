@@ -30,6 +30,7 @@
 	String uId="";
 	int maxNum = 0;
 	int tNum = 0;
+	String inTrip = "";
 	
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -82,9 +83,8 @@
     	destPlace="";
     	stmt = conn.prepareStatement("SELECT t_id, title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y FROM trip WHERE start LIKE ?");
 			stmt.setString(1, "%" + startPlace + "%");
-		
 			rs = stmt.executeQuery();
-				
+			
 				while(rs.next()){
 					t_id = rs.getString("t_id");
 					title = rs.getString("title");
