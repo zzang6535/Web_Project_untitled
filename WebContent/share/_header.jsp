@@ -32,7 +32,7 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
-							<li<%if(mode.equals("trip")){%> class="active"<%}%>><a href="/Co-Traveler/GoogleMap.jsp">여행</a></li>
+							<li<%if(mode.equals("trip")){%> class="active"<%}%>><a href="/Co-Traveler/trip/show.jsp">여행</a></li>
 							<li<%if(mode.equals("notice")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=notice">공지사항</a></li>
 							<li<%if(mode.equals("event")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=event">이벤트</a></li>
 							<li<%if(mode.equals("community")){%> class="active"<%}%>><a href="/Co-Traveler/board?mode=list&boardName=community">커뮤니티</a></li>

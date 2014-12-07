@@ -31,16 +31,7 @@
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 	
 %>
-<%@include file="share/_header.jsp" %>
-<script>
-	function checkForm()
-	{
-		if(confirm("정말 탈퇴하시겠습니까?"))
-		{
-			document.withdrawal.submit();			
-		}
-	}
-</script>
+<%@include file="../share/_header.jsp" %>
 <link rel="stylesheet" href="map/googlemap.css" type="text/css">
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?
@@ -165,4 +156,4 @@
 			} %>
 		</div>
 		</div>
-<%@include file="share/_footer.jsp" %>
+<%@include file="../share/_footer.jsp" %>

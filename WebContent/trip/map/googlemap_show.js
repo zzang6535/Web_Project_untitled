@@ -37,7 +37,7 @@ function initialize() {
 			infoArray=[];
 			var place = autocompleteStart.getPlace();
 			var str = "p1="+place.name;
-			sendRequest("show_DBconnector.jsp", str, function(){
+			sendRequest("DB_show.jsp", str, function(){
 				if(xhr.readyState == 4 && xhr.status == 200){
 					var Location = (xhr.responseText).split(',');
 					for(var i=0; i < Location.length/8; i++){
@@ -66,7 +66,7 @@ function initialize() {
 			infoArray=[];
 			var place = autocompleteDest.getPlace();
 			var str = "p2="+place.name;
-			sendRequest("show_DBconnector.jsp", str, function(){
+			sendRequest("DB_show.jsp", str, function(){
 				if(xhr.readyState == 4 && xhr.status == 200){
 					var Location = (xhr.responseText).split(',');
 					for(var i=0; i < Location.length/2; i++){
