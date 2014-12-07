@@ -12,8 +12,15 @@
 	String dbUser = "seunggabi";
 	String dbPassword = "co-traveler";
 	
-	String rspPlace="";
-	String address="";
+	String startPlace = "";
+	String destPlace = "";
+	String title = "";
+	String start = "";
+	String dest = "";
+	int tripnum = 0;
+	String content = "";
+	String sdate = "";
+	String edate = "";
 	String geoX="";
 	String geoY="";
 	
@@ -23,22 +30,52 @@
 		
 		//DB Connection
 		conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
- 		rspPlace = request.getParameter("p1");
+ 		startPlace = request.getParameter("p1");
+ 		destPlace = request.getParameter("p2");
  		
-    if(!rspPlace.equals("")){
-    	stmt = conn.prepareStatement("SELECT start, spos_x, spos_y FROM trip WHERE start LIKE ?");
-			stmt.setString(1, "%" + rspPlace + "%");
+    if(!(startPlace == null)){
+    	destPlace="";
+    	stmt = conn.prepareStatement("SELECT title, start, dest, tripnum, content, sdate, edate, spos_x, spos_y FROM trip WHERE start LIKE ?");
+			stmt.setString(1, "%" + startPlace + "%");
 		
 			rs = stmt.executeQuery();
 				
 				while(rs.next()){
-					address = rs.getString("start");
+					title = rs.getString("title");
+					start = rs.getString("start");
+					dest = rs.getString("dest");
+					tripnum = rs.getInt("tripnum");
+					content = rs.getString("content");
+					sdate = rs.getString("sdate");
+					edate = rs.getString("edate");
 					geoX = rs.getString("spos_x");
 					geoY = rs.getString("spos_y");
-					out.println(geoX + "," + geoY + ",");
+					
+					out.print(title + "," + start + "," + dest + "," + 
+						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + ",");
 				}
-    	} else{
-    		String userId = (String)session.getAttribute("id");
+    } else if(!destPlace.equals("")){
+    	startPlace="";
+    	stmt = conn.prepareStatement("SELECT title, start, dest, tripnum, content, sdate, edate, dpos_x, dpos_y FROM trip WHERE dest LIKE ?");
+			stmt.setString(1, "%" + destPlace + "%");
+	
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				title = rs.getString("title");
+				start = rs.getString("start");
+				dest = rs.getString("dest");
+				tripnum = rs.getInt("tripnum");
+				content = rs.getString("content");
+				sdate = rs.getString("sdate");
+				edate = rs.getString("edate");
+				geoX = rs.getString("dpos_x");
+				geoY = rs.getString("dpos_y");
+				out.println(title + "," + start + "," + dest + "," + 
+						String.valueOf(tripnum) + "," + content + "," + sdate + "," + edate + "," + geoX + "," + geoY + ",");
+			}
+    }	else{ 
+    	String userId = (String)session.getAttribute("id");
 			String userName = (String)session.getAttribute("name");
 			String userLink = userId;
 			if(session.getAttribute("join_type") != null)
