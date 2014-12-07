@@ -104,13 +104,20 @@ public class UserServlet extends HttpServlet {
 		
 		else if(mode.equals("my"))
 		{
+			String id = (String)session.getAttribute("id");
 			try 
 			{
 					int tripPage = getIntFromParameter(request.getParameter("tpage"), 1);
-					PageResult<Trip> trips = TripDAO.getUserPage(tripPage, 10, (String)session.getAttribute("id"));
+					PageResult<Trip> trips = TripDAO.getUserPage(tripPage, 10, id);
 					request.setAttribute("trips", trips);
-					request.setAttribute("tripListCnt", TripDAO.tripListCnt());
+					request.setAttribute("tripUserListCnt", TripDAO.tripUserListCnt(id));
 					request.setAttribute("tpage", tripPage);
+					
+					int tripPartnerPage = getIntFromParameter(request.getParameter("tppage"), 1);
+					PageResult<Trip> tripPartners = TripDAO.getUserPartnerPage(tripPartnerPage, 10, id);
+					request.setAttribute("tripPartners", tripPartners);
+					request.setAttribute("tripPartnerListCnt", TripDAO.tripPartnerListCnt(id));
+					request.setAttribute("tppage", tripPartnerPage);
 					actionUrl = "view/mypage.jsp";
 			}
 			catch (SQLException | NamingException e) {
@@ -359,6 +366,48 @@ public class UserServlet extends HttpServlet {
 			}
 		}
 
+		else if(mode.equals("tripRemove"))
+		{
+			String id = (String) session.getAttribute("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			String tel = request.getParameter("tel");
+			String gender = request.getParameter("gender");
+			String start = request.getParameter("start");
+			
+			if(name != null) {
+				name = new String(name.getBytes("8859_1"), "UTF-8");
+			}
+			if(start != null) {
+				start = new String(start.getBytes("8859_1"), "UTF-8");
+			}
+			
+			user = new User(0, " ", id, pw, name, email, tel, gender, start);
+			
+			ArrayList<String> errorMsgs = new ArrayList<String>();
+			try 
+			{
+				if (UserDAO.updateUser(user)) 
+				{
+					request.setAttribute("msg", id+" 정보수정 완료, 다시 로그인 해주십시오");
+					session.invalidate();
+					actionUrl = "action/success.jsp";
+				}
+				else
+				{
+					errorMsgs.add("정보수정 실패");
+					request.setAttribute("errorMsgs", errorMsgs);
+					actionUrl = "action/error.jsp";
+				}
+			} 
+			catch (NoSuchAlgorithmException | SQLException
+					| NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
 	}

@@ -338,7 +338,7 @@ li#nav
 	background-color: white;
 }
 li#nav img
-{
+t
 }
 li#nav.active-marker
 {
@@ -360,4 +360,8 @@ p.bjqs-caption{display:block;width:96%;margin:0;padding:2%;position:absolute;bot
 #myTrip
 {
 	margin-top:100px;
+}
+#myTrip table
+{
+	min-width:600px;
 }
